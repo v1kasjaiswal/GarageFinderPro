@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Garage Finder Pro!</string>
+    <string name="internet">You are Offline!</string>
+    <string name="branding">Garage Finder Pro | All Rights Reserved 2023</string>
+    <string name="secretPass">FalconDevs</string>
+    
+    <string name="mapsdkkey">0581cf090125f71507f5a59edf82f47d</string>
+    <string name="clientid">33OkryzDZsJgPhgxfNtXwwF91scqLeQTkFs01Mun616J4u_-vbvFuzBP6MInpWt4NNuHB08b8TTagY194gJ07iraaW-AKt-F</string>
+    <string name="clientsecret">lrFxI-iSEg_Hn7VSdXu-O6RUR-vsn6w11gyLShHWwgiNz3wkZq-lxE8TFaNXWlBHWFHkWFdA9fkldM3ALtq-8FCvpHpoiRo0SLd-tPqangY=</string>
+</resources>
