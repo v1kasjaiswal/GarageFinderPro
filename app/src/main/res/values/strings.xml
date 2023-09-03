@@ -3,8 +3,8 @@
     <string name="internet">You are Offline!</string>
     <string name="branding">Garage Finder Pro | All Rights Reserved 2023</string>
     <string name="secretPass">FalconDevs</string>
-    
-    <string name="mapsdkkey">0581cf090125f71507f5a59edf82f47d</string>
-    <string name="clientid">33OkryzDZsJgPhgxfNtXwwF91scqLeQTkFs01Mun616J4u_-vbvFuzBP6MInpWt4NNuHB08b8TTagY194gJ07iraaW-AKt-F</string>
-    <string name="clientsecret">lrFxI-iSEg_Hn7VSdXu-O6RUR-vsn6w11gyLShHWwgiNz3wkZq-lxE8TFaNXWlBHWFHkWFdA9fkldM3ALtq-8FCvpHpoiRo0SLd-tPqangY=</string>
+
+    <string name="mapbox_access_token">sk.eyJ1Ijoib21lbnJhcHRvciIsImEiOiJjbGx0aXI5MGgwcGtrM2VvaDlxZHBjcW1tIn0.3GUVPq8pJI7NkCa12M2ixQ</string>
+
+    <string name="api_key">cfe8304bb0mshb6039f76000bf12p1f26e4jsn185ec7a27c8b</string>
 </resources>

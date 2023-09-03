@@ -12,6 +12,7 @@
         android:layout_height="60dp"
         android:layout_margin="10dp"
         android:elevation="8dp"
+        app:cardBackgroundColor="@color/grey2"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -250,6 +251,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/cityName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -280,12 +282,13 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/petrolPriceText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center |bottom"
                         android:layout_marginBottom="15dp"
                         android:fontFamily="@font/archivo"
-                        android:text="106.29Rs."
+                        android:text="00.00Rs."
                         android:textColor="@color/offline"
                         android:textSize="16sp" />
 
@@ -310,12 +313,13 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/dieselPriceText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center |bottom"
                         android:layout_marginBottom="15dp"
                         android:fontFamily="@font/archivo"
-                        android:text="96.62Rs."
+                        android:text="00.00Rs."
                         android:textColor="@color/offline"
                         android:textSize="16sp" />
 
@@ -340,12 +344,13 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/cngPriceText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center |bottom"
                         android:layout_marginBottom="15dp"
                         android:fontFamily="@font/archivo"
-                        android:text="56.00Rs."
+                        android:text="00.00Rs."
                         android:textColor="@color/offline"
                         android:textSize="16sp" />
 
@@ -427,6 +432,7 @@
                                 android:backgroundTint="@color/black"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
+                                android:onClick="openAnother"
                                 android:fontFamily="@font/archivo"
                                 android:text="Order Now!"
                                 android:textColor="@color/white"
@@ -645,6 +651,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
+                        android:id="@+id/viewMoreProducts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"

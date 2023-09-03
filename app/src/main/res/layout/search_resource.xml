@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_margin="10dp"
+        android:background="@color/grey2"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" >
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="10dp"
+            app:cardPreventCornerOverlap="false">
+
+            <ImageView
+                android:id="@+id/garageImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/valiantplayz" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/garageName"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="top | right"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/archivo"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Hello World! Auto Repairs"
+            android:textColor="@color/offline"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/garageReach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="top | right"
+            android:ellipsize="end"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/archivo"
+            android:maxLines="1"
+            android:text="Reach in 5 mins"
+            android:textColor="@color/offline"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timing: 9:00 AM - 9:00 PM"
+            android:textSize="15sp"
+            android:layout_gravity="right"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/archivo"
+            android:textColor="@color/offline"
+            android:layout_marginRight="15dp"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center  | left"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/grey2"
+                    android:elevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#Towing Service"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/archivo"
+                        android:textColor="@color/offline"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/grey2"
+                    android:elevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#4-Wheeler"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/archivo"
+                        android:textColor="@color/offline"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/grey2"
+                    android:elevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#Electric"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/archivo"
+                        android:textColor="@color/offline"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/grey2"
+                    android:elevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#Wheel Alignment"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/archivo"
+                        android:textColor="@color/offline"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/grey2"
+                    android:elevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#Engine Repair"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/archivo"
+                        android:textColor="@color/offline"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom | left"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/archivo"
+            android:text="Call"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom |center"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/archivo"
+            android:text="Get Routes"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom | right"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/archivo"
+            android:text="Book"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

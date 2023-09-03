@@ -130,7 +130,7 @@
         android:backgroundTint="@color/black"
         android:drawableRight="@drawable/arrow"
         android:fontFamily="@font/archivo"
-        android:onClick="openOTPActivity"
+        android:onClick="openGenerateUser"
         android:text="Continue"
         android:textAlignment="center"
         android:textColor="@color/white"

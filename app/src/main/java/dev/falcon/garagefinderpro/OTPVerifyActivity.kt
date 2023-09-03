@@ -123,6 +123,7 @@ class OTPVerifyActivity : AppCompatActivity() {
                 val usertype = bundle?.getString("usertype")
                 val googleSignInRequest = bundle?.getString("googleSignInRequest", "false")
                 val googleSignInEmail = bundle?.getString("googleSignInEmail")
+                Log.d("EMAILLLLLL", googleSignInEmail.toString())
                 val googleSignInName = bundle?.getString("googleSignInName")
                 val googleSignInPhoto = bundle?.getString("googleSignInPhoto")
 
@@ -131,9 +132,12 @@ class OTPVerifyActivity : AppCompatActivity() {
                 auth.signInWithCredential(credential)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            Log.d("TAG555", googleSignInRequest.toString())
+
                             val account = GoogleSignIn.getLastSignedInAccount(this)
 
-                            val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+                            val credential =
+                                GoogleAuthProvider.getCredential(account?.idToken, null)
 
                             auth.signInWithCredential(credential)
                                 .addOnSuccessListener {
@@ -146,99 +150,59 @@ class OTPVerifyActivity : AppCompatActivity() {
 
                                     Log.d("GoogleSignINREQUEST", googleSignInRequest.toString())
 
-                                    if (googleSignInRequest == "true") {
-                                        val user = auth.currentUser
+                                    val user = auth.currentUser
 
-                                        var utilities = Utilities()
+                                    val userMap = hashMapOf(
+                                        "type" to usertype,
+                                        "name" to googleSignInName,
+                                        "email" to googleSignInEmail,
+                                        "contact" to contactInput.text.toString(),
+                                        "photo" to googleSignInPhoto
+                                    )
 
-                                        val salt = ByteArray(16)
-                                        val iterations = 10000
-                                        val keyLength = 256
-                                        val initializationVector = utilities.generateIV()
-                                        val secretPass = resources.getString(R.string.secretPass)
-
-                                        val encryptedName =
-                                            utilities.encryptData(
-                                                googleSignInName.toString(),
-                                                secretPass,
-                                                salt,
-                                                iterations,
-                                                keyLength,
-                                                initializationVector
-                                            )
-
-                                        val encryptedEmail =
-                                            utilities.encryptData(
-                                                googleSignInEmail.toString(),
-                                                secretPass,
-                                                salt,
-                                                iterations,
-                                                keyLength,
-                                                initializationVector
-                                            )
-
-                                        val encryptedContact =
-                                            utilities.encryptData(
-                                                contactInput.text.toString(),
-                                                secretPass,
-                                                salt,
-                                                iterations,
-                                                keyLength,
-                                                initializationVector
-                                            )
-
-                                        val encryptedPhoto =
-                                            utilities.encryptData(
-                                                googleSignInPhoto.toString(),
-                                                secretPass,
-                                                salt,
-                                                iterations,
-                                                keyLength,
-                                                initializationVector
-                                            )
-
-
-                                        val userMap = hashMapOf(
-                                            "type" to usertype,
-                                            "name" to encryptedName,
-                                            "email" to encryptedEmail,
-                                            "contact" to encryptedContact,
-                                            "photo" to encryptedPhoto
-                                        )
-
-                                        db.collection("users").document(user!!.uid)
-                                            .set(userMap)
-                                            .addOnSuccessListener {
-                                                if (usertype == "user") {
-                                                    val intent = Intent(this, UserMainActivity::class.java)
-                                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                    startActivity(intent)
-                                                    finish()
-                                                } else if (usertype == "garageowner") {
-                                                    val intent = Intent(this, OwnerMainActivity::class.java)
-                                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                    startActivity(intent)
-                                                    finish()
-                                                }
+                                    db.collection("users").document(user!!.uid)
+                                        .set(userMap)
+                                        .addOnSuccessListener {
+                                            if (usertype == "user") {
+                                                val intent =
+                                                    Intent(
+                                                        this,
+                                                        UserMainActivity::class.java
+                                                    )
+                                                intent.flags =
+                                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                startActivity(intent)
+                                                finish()
+                                            } else if (usertype == "garageowner") {
+                                                val intent =
+                                                    Intent(
+                                                        this,
+                                                        OwnerMainActivity::class.java
+                                                    )
+                                                intent.flags =
+                                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                startActivity(intent)
+                                                finish()
                                             }
-                                            .addOnFailureListener {
-                                                Toast.makeText(
-                                                    this,
-                                                    "Error in Sign-up",
-                                                    Toast.LENGTH_SHORT
-                                                )
-                                                    .show()
-                                            }
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(
+                                                this,
+                                                "Error in Sign-up",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
 
-                                    } else {
-                                        val intent = Intent(this, SignUpActivity::class.java)
-                                        intent.putExtra("usertype", usertype.toString())
-                                        intent.putExtra("contact", contactInput.text.toString())
-                                        startActivity(intent)
-                                    }
+
                                 }
                                 .addOnFailureListener {
-                                    Toast.makeText(this, "Verification Failed", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        "Verification Failed",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
                                 }
 
                         }

@@ -87,14 +87,15 @@ class SignInActivity : AppCompatActivity() {
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
 
                 Log.d("signInWithCredential:success222", credential.toString())
-//                if (credential != null) {
                 auth.signInWithCredential(credential)
                     .addOnCompleteListener(this) {
                         if (it.isSuccessful) {
                             val user = auth.currentUser
 
+                            Log.d("Emaiill", user?.email.toString())
+
                             if (user != null) {
-                                db.collection("users").document(user!!.uid).get()
+                                db.collection("users").document(user.uid).get()
                                     .addOnSuccessListener { document ->
                                         if (document != null) {
                                             val type = document.data?.get("type").toString()
@@ -113,7 +114,8 @@ class SignInActivity : AppCompatActivity() {
                                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                 startActivity(intent)
                                                 finish()
-                                            } else {
+                                            }
+                                            else {
                                                 val intent =
                                                     Intent(this, DividerActivity::class.java)
                                                 intent.putExtra(
@@ -121,10 +123,13 @@ class SignInActivity : AppCompatActivity() {
                                                     credential.toString()
                                                 )
                                                 intent.putExtra("googleSignInRequest", "true")
-                                                intent.putExtra("googleSignInEmail", user.email)
+                                                intent.putExtra("googleSignInEmail", user.email.toString())
+                                                Log.d(
+                                                    "gGGGGoogleSSSSignInEEEEmail",
+                                                    user.email.toString())
                                                 intent.putExtra(
                                                     "googleSignInName",
-                                                    user.displayName
+                                                    user.displayName.toString()
                                                 )
                                                 intent.putExtra(
                                                     "googleSignInPhoto",
@@ -134,6 +139,29 @@ class SignInActivity : AppCompatActivity() {
                                                 startActivity(intent)
                                             }
                                         }
+                                        else {
+                                            val intent =
+                                                Intent(this, DividerActivity::class.java)
+                                            intent.putExtra(
+                                                "googleSignInCredential",
+                                                credential.toString()
+                                            )
+                                            intent.putExtra("googleSignInRequest", "true")
+                                            intent.putExtra("googleSignInEmail", user.email.toString())
+                                            Log.d(
+                                                "gGGGGoogleSSSSignInEEEEmail",
+                                                user.email.toString())
+                                            intent.putExtra(
+                                                "googleSignInName",
+                                                user.displayName.toString()
+                                            )
+                                            intent.putExtra(
+                                                "googleSignInPhoto",
+                                                user.photoUrl.toString()
+                                            )
+                                            intent.putExtra("googleSignInId", user.uid)
+                                            startActivity(intent)
+                                        }
                                     }
                                     .addOnFailureListener { exception ->
                                         Log.d("TAG", "User Not Found!", exception)
@@ -142,6 +170,7 @@ class SignInActivity : AppCompatActivity() {
                                 val intent = Intent(this, DividerActivity::class.java)
                                 intent.putExtra("googleSignInRequest", "true")
                                 intent.putExtra("googleSignInEmail", user?.email)
+                                Log.d("gGGGGoogleSSSSignInEmail", user?.email.toString())
                                 intent.putExtra("googleSignInName", user?.displayName)
                                 intent.putExtra(
                                     "googleSignInPhoto",
@@ -223,19 +252,35 @@ class SignInActivity : AppCompatActivity() {
                                                 userRef.get()
                                                     .addOnSuccessListener { document ->
                                                         if (document != null) {
-                                                            Log.d("TAG", "DocumentSnapshot ddd HEREEEEE data: ${document.data}")
+                                                            Log.d(
+                                                                "TAG",
+                                                                "DocumentSnapshot ddd HEREEEEE data: ${document.data}"
+                                                            )
                                                             if (document.data?.get("type") == "garageowner") {
 
-                                                                Log.d("TAG", "DocumentSnapshot  HEREEEEE data: ${document.data}")
-                                                                val intent = Intent(this@SignInActivity, OwnerMainActivity::class.java)
+                                                                Log.d(
+                                                                    "TAG",
+                                                                    "DocumentSnapshot  HEREEEEE data: ${document.data}"
+                                                                )
+                                                                val intent = Intent(
+                                                                    this@SignInActivity,
+                                                                    OwnerMainActivity::class.java
+                                                                )
                                                                 startActivity(intent)
                                                                 finish()
                                                             } else if (document.data?.get("type") == "user") {
-                                                                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
-                                                                val intent = Intent(this@SignInActivity, UserMainActivity::class.java)
+                                                                Log.d(
+                                                                    "TAG",
+                                                                    "DocumentSnapshot data: ${document.data}"
+                                                                )
+                                                                val intent = Intent(
+                                                                    this@SignInActivity,
+                                                                    UserMainActivity::class.java
+                                                                )
                                                                 startActivity(intent)
                                                                 finish()
                                                             }
+                                                            
                                                         } else {
                                                             Toast.makeText(this@SignInActivity, "No User Found", Toast.LENGTH_SHORT).show()
 

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tomtom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserNavigationActivity">
 
-    <com.mappls.sdk.maps.MapView
-        android:id="@+id/map_view"
+    <com.mapbox.maps.MapView
+        android:id="@+id/MapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tomtom:layout_constraintBottom_toBottomOf="parent"
+        tomtom:layout_constraintEnd_toEndOf="parent"
+        tomtom:layout_constraintStart_toStartOf="parent"
+        tomtom:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

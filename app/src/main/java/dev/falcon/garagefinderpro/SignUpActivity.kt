@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import dev.falcon.garagefinderpro.Utilities
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -108,40 +107,19 @@ class SignUpActivity : AppCompatActivity() {
                                                                             Log.d("bundle", bundle.toString())
                                                                             var whouser = bundle?.getString("usertype","null")
                                                                             Log.d("whouserw", whouser.toString())
-                                                                            var contact = bundle?.getString("contact", "null")
-                                                                            Log.d("contact", contact.toString())
-
-                                                                            var utilities = Utilities()
-
-                                                                            val salt = ByteArray(16)
-                                                                            val iterations = 10000
-                                                                            val keyLength = 256
-                                                                            val initializationVector = utilities.generateIV()
-                                                                            val secretPass = resources.getString(R.string.secretPass)
-
-                                                                            val encryptedName =
-                                                                                utilities.encryptData(name.text.toString(), secretPass, salt, iterations, keyLength, initializationVector)
-
-                                                                            val encryptedEmail =
-                                                                                utilities.encryptData(email.text.toString(), secretPass, salt, iterations, keyLength, initializationVector)
-
-                                                                            val encryptedContact =
-                                                                                utilities.encryptData(contact.toString(), secretPass, salt, iterations, keyLength, initializationVector)
-
 
                                                                             val userMap = hashMapOf(
                                                                                 "type" to whouser,
-                                                                                "name" to encryptedName,
-                                                                                "email" to encryptedEmail,
-                                                                                "contact" to encryptedContact
+                                                                                "name" to name.text.toString(),
+                                                                                "email" to email.text.toString(),
                                                                             )
 
                                                                             db.collection("users").document(auth.currentUser?.uid.toString()).set(userMap)
                                                                                 .addOnSuccessListener {
                                                                                     Toast.makeText(this, "Verification Email Sent", Toast.LENGTH_SHORT).show()
 
-                                                                                    val intent = Intent(this, SignInActivity::class.java)
                                                                                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                                                    val intent = Intent(this, SignInActivity::class.java)
                                                                                     startActivity(intent)
                                                                                     finish()
                                                                                 }
@@ -235,8 +213,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun moveToSignin(view: View) {
-        val intent = Intent(this, SignInActivity::class.java)
-        startActivity(intent)
-        finish()
+//        val intent = Intent(this, SignInActivity::class.java)
+//        startActivity(intent)
+//        finish()
     }
 }

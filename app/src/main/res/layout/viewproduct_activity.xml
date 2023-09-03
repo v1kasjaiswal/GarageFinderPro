@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserSearchActivity">
+    tools:context=".ViewProductActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
+        android:id="@+id/cardView7"
         android:layout_width="match_parent"
         android:layout_height="93dp"
         app:cardCornerRadius="15dp"
@@ -25,7 +25,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
-            app:queryHint="Search Nearby Garage" />
+            app:queryHint="Search More Products" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
     </androidx.cardview.widget.CardView>
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView2"
+        android:id="@+id/horizontalScrollView3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="-12dp"
@@ -46,16 +46,15 @@
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4">
-
+        app:layout_constraintTop_toBottomOf="@+id/cardView7">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView4">
+            app:layout_constraintTop_toBottomOf="@+id/cardView7">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -66,7 +65,6 @@
                 app:cardPreventCornerOverlap="false">
 
                 <TextView
-                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -75,7 +73,31 @@
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
                     android:text="Mumbai"
-                    android:textColor="@color/offline"
+                    android:textColor="@color/black"
+                    android:textFontWeight="600"
+                    android:textSize="17sp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/grey2"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:padding="10dp"
+                    android:text="Mumbai"
+                    android:textColor="@color/black"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
 
@@ -90,7 +112,6 @@
                 app:cardPreventCornerOverlap="false">
 
                 <TextView
-                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -99,11 +120,12 @@
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
                     android:text="Mumbai"
-                    android:textColor="@color/offline"
+                    android:textColor="@color/black"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
 
             </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -114,7 +136,6 @@
                 app:cardPreventCornerOverlap="false">
 
                 <TextView
-                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -123,11 +144,12 @@
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
                     android:text="Mumbai"
-                    android:textColor="@color/offline"
+                    android:textColor="@color/black"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
 
             </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -138,7 +160,6 @@
                 app:cardPreventCornerOverlap="false">
 
                 <TextView
-                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -147,55 +168,7 @@
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
                     android:text="Mumbai"
-                    android:textColor="@color/offline"
-                    android:textFontWeight="600"
-                    android:textSize="17sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                app:cardBackgroundColor="@color/grey2"
-                app:cardCornerRadius="10dp"
-                app:cardPreventCornerOverlap="false">
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="@font/archivo"
-                    android:padding="10dp"
-                    android:text="Mumbai"
-                    android:textColor="@color/offline"
-                    android:textFontWeight="600"
-                    android:textSize="17sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                app:cardBackgroundColor="@color/grey2"
-                app:cardCornerRadius="10dp"
-                app:cardPreventCornerOverlap="false">
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="@font/archivo"
-                    android:padding="10dp"
-                    android:text="Mumbai"
-                    android:textColor="@color/offline"
+                    android:textColor="@color/black"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
 
@@ -203,20 +176,18 @@
 
         </LinearLayout>
 
-
     </HorizontalScrollView>
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchRecyclerView"
+        android:id="@+id/productsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="620dp"
+        android:layout_height="615dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
-        app:layout_constraintVertical_bias="0.041" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

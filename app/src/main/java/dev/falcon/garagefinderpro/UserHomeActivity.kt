@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -22,12 +24,28 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
+import com.skydoves.balloon.ArrowOrientation
+import com.skydoves.balloon.ArrowPositionRules
+import com.skydoves.balloon.Balloon
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.createBalloon
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import okio.IOException
+import org.json.JSONException
+import org.json.JSONObject
 
 private val REQUEST_ENABLE_LOCATION = 141
 
@@ -37,6 +55,11 @@ class UserHomeActivity : Fragment() {
     lateinit var linearLayout: LinearLayout
     lateinit var quoteview : TextView
     lateinit var refreshLocation : ImageView
+
+    lateinit var petrolPriceText : TextView
+    lateinit var dieselPriceText : TextView
+    lateinit var cngPriceText : TextView
+    lateinit var cityName : TextView
 
     var currentIndex = 0
     var childCount = 0
@@ -67,20 +90,42 @@ class UserHomeActivity : Fragment() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        getLocation()
-
         refreshLocation = view.findViewById(R.id.imageView5)
+
+        val balloon: Balloon = createBalloon(requireContext()) {
+            setArrowSize(10)
+            .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
+            setCornerRadius(4f)
+            setPadding(10)
+            setAutoDismissDuration(5000L)
+            setMargin(10)
+            setCornerRadius(6f)
+            setText("Click Here to Refresh Location!")
+            setTextColorResource(R.color.white)
+            setBackgroundColorResource(R.color.black)
+            setBalloonAnimation(BalloonAnimation.FADE)
+            setLifecycleOwner(lifecycleOwner)
+        }
+
+        handler.postDelayed({
+            balloon.showAlignBottom(refreshLocation)
+        }, 1500)
+
+        getLocation()
 
         refreshLocation.setOnClickListener {
             getLocation()
+            balloon.showAlignBottom(refreshLocation)
         }
+
+        petrolPriceText = view.findViewById(R.id.petrolPriceText)
+        dieselPriceText = view.findViewById(R.id.dieselPriceText)
+        cngPriceText = view.findViewById(R.id.cngPriceText)
 
         return view
     }
 
     private val runnable = Runnable { scrollToNextImage() }
-
-//    write car repair quotes here in less than 3 words and in capital letters
 
     val quotes = arrayOf(
         "FIXING FAST, ROLLING SMOOTH",
@@ -128,14 +173,40 @@ class UserHomeActivity : Fragment() {
 
                 result.addOnCompleteListener { task ->
                     if (task.isSuccessful){
-                        getLocation()
+                        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                            if (location != null) {
+                                val geocoder = android.location.Geocoder(requireContext())
+                                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                                val address = addresses?.get(0)?.getAddressLine(0)
+                                val city = addresses?.get(0)?.locality
+                                val state = addresses?.get(0)?.adminArea
+                                val country = addresses?.get(0)?.countryName
+                                userLocation.text = "$city, $state, $country"
+
+                                val cityName = view?.findViewById(R.id.cityName) as TextView
+                                cityName.text = city.toString()
+
+                                val fuelPriceAPI = FuelPriceAPI()
+                                fuelPriceAPI.getFuelPrices(state.toString().lowercase(), city.toString().lowercase()) { petrolPrice, dieselPrice, cngPrice ->
+                                    petrolPriceText.text = "$petrolPrice Rs."
+                                    dieselPriceText.text = "$dieselPrice Rs."
+                                    cngPriceText.text = "$cngPrice Rs."
+                                }
+
+                            }
+                            else {
+                                userLocation.text = "Location Not Found"
+                            }
+                        }
+                            .addOnFailureListener {
+                                userLocation.text = "Location Permission Denied"
+                            }
                     }
                     else {
                         if (task.exception is ResolvableApiException) {
                             try {
                                 val resolvable = task.exception as ResolvableApiException
                                 resolvable.startResolutionForResult(requireActivity(), REQUEST_ENABLE_LOCATION)
-
                             } catch (sendEx: IntentSender.SendIntentException) {
                                 Log.d("TAG", "Error starting resolution for location settings")
                             }
@@ -155,6 +226,16 @@ class UserHomeActivity : Fragment() {
                         val state = addresses?.get(0)?.adminArea
                         val country = addresses?.get(0)?.countryName
                         userLocation.text = "$city, $state, $country"
+
+                        val cityName = view?.findViewById(R.id.cityName) as TextView
+                        cityName.text = city.toString()
+
+                        val fuelPriceAPI = FuelPriceAPI()
+                        fuelPriceAPI.getFuelPrices(state.toString().lowercase(), city.toString().lowercase()) { petrolPrice, dieselPrice, cngPrice ->
+                            petrolPriceText.text = "$petrolPrice Rs."
+                            dieselPriceText.text = "$dieselPrice Rs."
+                            cngPriceText.text = "$cngPrice Rs."
+                        }
                     }
                     else {
                         userLocation.text = "Location Not Found"
@@ -182,10 +263,14 @@ class UserHomeActivity : Fragment() {
         }
     }
 
+
     override fun onPause() {
         getLocation()
         super.onPause()
     }
 
-
+    override fun onResume() {
+        getLocation()
+        super.onResume()
+    }
 }

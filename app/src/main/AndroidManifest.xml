@@ -4,11 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -18,42 +16,50 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.GarageFinderPro"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".OwnerMainActivity"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UserMainActivity"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".SignUpActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".OTPVerifyActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".OfflineActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".DividerActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".SupportActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OTPVerifyActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OfflineActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DividerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SupportActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

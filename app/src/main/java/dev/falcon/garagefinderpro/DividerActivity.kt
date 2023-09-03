@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class DividerActivity : AppCompatActivity() {
 
@@ -38,7 +41,7 @@ class DividerActivity : AppCompatActivity() {
     lateinit var radio1 : RadioButton
     lateinit var radio2 : RadioButton
 
-    fun openOTPActivity(view: View) {
+    fun openGenerateUser(view: View) {
 
         radio1 = findViewById(R.id.radioButton3)
         radio2 = findViewById(R.id.radioButton4)
@@ -51,25 +54,44 @@ class DividerActivity : AppCompatActivity() {
             val bundle = intent.extras
 
             val googleSignInRequest = bundle?.getString("googleSignInRequest", "false")
-            val googleSignInEmail = bundle?.getString("googleSignInEmail")
-            val googleSignInName = bundle?.getString("googleSignInName")
-            val googleSignInPhoto = bundle?.getString("googleSignInPhoto")
-            val googleSignInId = bundle?.getString("googleSignInId")
+            Log.d("googleSignInRequest",googleSignInRequest.toString())
 
-            if (googleSignInRequest== "true"){
-                val intent = Intent(this, OTPVerifyActivity::class.java)
-                intent.putExtra("usertype", whouser.toString())
-                intent.putExtra("googleSignInRequest",googleSignInRequest)
-                intent.putExtra("googleSignInEmail",googleSignInEmail)
-                intent.putExtra("googleSignInName",googleSignInName)
-                intent.putExtra("googleSignInPhoto",googleSignInPhoto)
-                intent.putExtra("googleSignInId",googleSignInId)
-                startActivity(intent)
+
+            if (googleSignInRequest == "true") {
+                val googleSignInEmail = bundle?.getString("googleSignInEmail")
+                val googleSignInName = bundle?.getString("googleSignInName")
+                val googleSignInPhoto = bundle?.getString("googleSignInPhoto")
+
+                val db = Firebase.firestore
+
+                val userMap = hashMapOf(
+                    "type" to whouser,
+                    "name" to googleSignInName,
+                    "email" to googleSignInEmail,
+                    "photo" to googleSignInPhoto
+                )
+
+                val user = Firebase.auth.currentUser
+
+                db.collection("users").document(user!!.uid)
+                    .set(userMap)
+                    .addOnSuccessListener {
+                        if (whouser == "user") {
+                            val intent = Intent(this@DividerActivity, UserMainActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            val intent = Intent(this@DividerActivity, OwnerMainActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
             }
-            else{
-                val intent = Intent(this@DividerActivity, SignUpActivity::class.java)
-                intent.putExtra("usertype", whouser.toString())
-                startActivity(intent)
+            else {
+            val intent = Intent(this@DividerActivity, SignUpActivity::class.java)
+            intent.putExtra("usertype", whouser.toString())
+            startActivity(intent)
             }
         }
     }

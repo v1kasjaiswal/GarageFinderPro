@@ -15,9 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.mappls.sdk.maps.Mappls
-import com.mappls.sdk.maps.MapplsMap
-import com.mappls.sdk.services.account.MapplsAccountManager
 
 
 class UserMainActivity : AppCompatActivity() {
@@ -31,16 +28,11 @@ class UserMainActivity : AppCompatActivity() {
 
     private var db = Firebase.firestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usermain_activity)
 
-        MapplsAccountManager.getInstance().restAPIKey = resources.getString(R.string.mapsdkkey)
-        MapplsAccountManager.getInstance().mapSDKKey = resources.getString(R.string.mapsdkkey)
-        MapplsAccountManager.getInstance().atlasClientId = resources.getString(R.string.clientid)
-        MapplsAccountManager.getInstance().atlasClientSecret = resources.getString(R.string.clientsecret)
-        MapplsAccountManager.getInstance().setRegion("IND");
-        Mappls.getInstance(applicationContext)
 
         val gsio = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -187,5 +179,21 @@ class UserMainActivity : AppCompatActivity() {
         val intent = Intent(this, SupportActivity::class.java)
         startActivity(intent)
     }
+
+    fun openAnother(view: View) {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .replace(R.id.container, ViewProductActivity())
+            .commit()
+    }
+
+//    fun viewMoreProducts(view: View) {
+//        supportFragmentManager
+//            .beginTransaction()
+//            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+//            .replace(R.id.container, ViewProductActivity())
+//            .commit()
+//    }
 
 }
