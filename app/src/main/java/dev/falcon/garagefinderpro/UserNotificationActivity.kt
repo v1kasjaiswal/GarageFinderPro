@@ -16,10 +16,6 @@ class UserNotificationActivity : Fragment() {
     private var adapter: RecyclerView.Adapter<NotificationsRecyclerAdapter.ViewHolder>? = null
     lateinit var recyclerview: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

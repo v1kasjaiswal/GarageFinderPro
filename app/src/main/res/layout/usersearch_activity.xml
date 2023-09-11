@@ -8,6 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
+        android:layout_marginTop="-7dp"
         android:layout_width="match_parent"
         android:layout_height="93dp"
         app:cardCornerRadius="15dp"
@@ -40,6 +41,7 @@
         android:id="@+id/horizontalScrollView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="-12dp"
         android:orientation="horizontal"
         android:paddingLeft="10dp"

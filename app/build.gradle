@@ -31,9 +31,18 @@ android {
         jvmTarget = '1.8'
     }
 
-    packagingOptions {
-        jniLibs.pickFirsts.add("lib/**/libc++_shared.so")
-    }
+//    packagingOptions {
+//        jniLibs.pickFirsts.add("lib/**/libc++_shared.so")
+//    }
+
+//    buildFeatures {
+//        buildConfig = true
+//    }
+//
+//
+//    buildTypes.each {
+//        it.buildConfigField 'String', 'TOMTOM_API_KEY', "\"$tomtomApiKey\""
+//    }
 }
 
 dependencies {
@@ -43,7 +52,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth-ktx:22.1.1'
-    implementation 'com.google.android.gms:play-services-auth:20.6.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.7.1'
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
@@ -57,17 +66,7 @@ dependencies {
     implementation "com.github.skydoves:balloon:1.5.4"
     implementation "com.squareup.okhttp3:okhttp:4.11.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
-
-//    implementation "com.mapbox.navigation:ui-dropin:2.14.2"
-//    implementation "com.mapbox.navigation:android:2.14.2"
-
-//    implementation "com.tomtom.sdk.maps:map-display:0.30.1"
-//    implementation "com.tomtom.sdk.location:provider-android:0.30.1"
-//    implementation "com.tomtom.sdk.search:search-online:0.30.1"
-//    implementation "com.tomtom.sdk.routing:route-planner-online:0.30.1"
-
-
-
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation "com.mapbox.navigation:ui-dropin:2.14.2"
 
 }

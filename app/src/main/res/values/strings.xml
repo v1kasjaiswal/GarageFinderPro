@@ -7,4 +7,22 @@
     <string name="mapbox_access_token">sk.eyJ1Ijoib21lbnJhcHRvciIsImEiOiJjbGx0aXI5MGgwcGtrM2VvaDlxZHBjcW1tIn0.3GUVPq8pJI7NkCa12M2ixQ</string>
 
     <string name="api_key">cfe8304bb0mshb6039f76000bf12p1f26e4jsn185ec7a27c8b</string>
+
+    <string-array name="vehicleType">
+        <item>Car</item>
+        <item>Bike</item>
+        <item>Scooter</item>
+        <item>Rickshaw</item>
+        <item>Truck</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="fuelType">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>CNG</item>
+        <item>LPG</item>
+        <item>Electric</item>
+        <item>Hybrid</item>
+    </string-array>
 </resources>

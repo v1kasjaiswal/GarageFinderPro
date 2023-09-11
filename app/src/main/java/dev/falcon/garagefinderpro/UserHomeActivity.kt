@@ -263,14 +263,4 @@ class UserHomeActivity : Fragment() {
         }
     }
 
-
-    override fun onPause() {
-        getLocation()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        getLocation()
-        super.onResume()
-    }
 }

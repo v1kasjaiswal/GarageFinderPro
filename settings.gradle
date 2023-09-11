@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
+
             url 'https://api.mapbox.com/downloads/v2/releases/maven'
             authentication {
                 basic(BasicAuthentication)
@@ -25,6 +26,16 @@ dependencyResolutionManagement {
                 password = MAPBOX_DOWNLOADS_TOKEN
             }
         }
+        maven { url 'https://jitpack.io' }
+
+
+//        maven {
+//            credentials {
+//                username = "omenraptor"
+//                password = "AizEj7LSvqJzZpvzOO1ZRdTfS3vu0QDz"
+//            }
+//            url = uri("https://repositories.tomtom.com/artifactory/maven")
+//        }
 
     }
 }

@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -19,6 +20,8 @@ class OwnerMainActivity : AppCompatActivity() {
 
     var auth = FirebaseAuth.getInstance()
     lateinit var googleSignInClient : GoogleSignInClient
+
+    lateinit var bottomnavbar : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +45,64 @@ class OwnerMainActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gsio)
 
+        bottomnavbar = findViewById(R.id.bottomnavbarowner)
 
-        Log.d("TAG", "onCreate: ${auth.currentUser?.displayName}")
+        bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home_dark)
+
+        bottomnavbar.setOnItemSelectedListener {item ->
+            when (item.itemId){
+                R.id.home -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out)
+                        .replace(R.id.container, OwnerHomeActivity())
+                        .commit()
+                    bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home_dark)
+                    bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
+                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.insights).icon = resources.getDrawable(R.drawable.insights)
+                    true
+                }
+                R.id.profile -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out)
+                        .replace(R.id.container, OwnerProfileActivity())
+                        .commit()
+                    bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
+                    bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user_dark)
+                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.insights).icon = resources.getDrawable(R.drawable.insights)
+                    true
+                }
+                R.id.insights -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out)
+                        .replace(R.id.container, OwnerInsightsActivity())
+                        .commit()
+                    bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
+                    bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
+                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.insights).icon = resources.getDrawable(R.drawable.insights_dark)
+                    true
+                }
+                R.id.notifications -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out)
+                        .replace(R.id.container, UserNotificationActivity())
+                        .commit()
+                    bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
+                    bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
+                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell_dark)
+                    bottomnavbar.menu.findItem(R.id.insights).icon = resources.getDrawable(R.drawable.insights)
+                    true
+                }
+
+                else -> false
+            }
+        }
 
     }
 

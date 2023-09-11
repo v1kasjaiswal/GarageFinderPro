@@ -6,6 +6,8 @@
     <color name="grey">#FF818589</color>
     <color name="grey2">#FFeee8f4</color>
     <color name="offline">#FF49454F</color>
+    <color name="red">#FFFF3131</color>
+    <color name="yellow">#FFFFFF00 </color>
 </resources>
 
 <!--    818589-->
