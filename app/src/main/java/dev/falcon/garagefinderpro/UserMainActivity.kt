@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class UserMainActivity : AppCompatActivity() {
@@ -28,7 +29,6 @@ class UserMainActivity : AppCompatActivity() {
 
     private var db = Firebase.firestore
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usermain_activity)
@@ -41,6 +41,7 @@ class UserMainActivity : AppCompatActivity() {
 
         networkReceiver = CheckConnectivity()
         googleSignInClient = GoogleSignIn.getClient(this, gsio)
+
 
         supportFragmentManager
             .beginTransaction()

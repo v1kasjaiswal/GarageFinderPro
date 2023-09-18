@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
@@ -32,11 +33,13 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
+import com.google.firebase.storage.FirebaseStorage
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.createBalloon
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -56,10 +59,20 @@ class UserHomeActivity : Fragment() {
     lateinit var quoteview : TextView
     lateinit var refreshLocation : ImageView
 
+    val storage = FirebaseStorage.getInstance()
+
     lateinit var petrolPriceText : TextView
     lateinit var dieselPriceText : TextView
     lateinit var cngPriceText : TextView
     lateinit var cityName : TextView
+
+    lateinit var banner1 : ImageView
+    lateinit var banner2 : ImageView
+    lateinit var banner3 : ImageView
+    lateinit var banner4 : ImageView
+    lateinit var banner5 : ImageView
+    lateinit var banner6 : ImageView
+    lateinit var banner7 : ImageView
 
     var currentIndex = 0
     var childCount = 0
@@ -122,6 +135,22 @@ class UserHomeActivity : Fragment() {
         dieselPriceText = view.findViewById(R.id.dieselPriceText)
         cngPriceText = view.findViewById(R.id.cngPriceText)
 
+        banner1 = view.findViewById(R.id.homescrollimg1)
+        banner2 = view.findViewById(R.id.homescrollimg2)
+        banner3 = view.findViewById(R.id.homescrollimg3)
+        banner4 = view.findViewById(R.id.homescrollimg4)
+        banner5 = view.findViewById(R.id.homescrollimg5)
+        banner6 = view.findViewById(R.id.homescrollimg6)
+        banner7 = view.findViewById(R.id.homescrollimg7)
+
+        loadImages("homescrollimg1.jpg", banner1)
+        loadImages("homescrollimg2.jpg", banner2)
+        loadImages("homescrollimg3.jpg", banner3)
+        loadImages("homescrollimg4.jpg", banner4)
+        loadImages("homescrollimg5.jpg", banner5)
+        loadImages("homescrollimg6.jpg", banner6)
+        loadImages("homescrollimg7.jpg", banner7)
+
         return view
     }
 
@@ -136,6 +165,8 @@ class UserHomeActivity : Fragment() {
         "FIXING CARS, FIXING LIVES",
         "RESCUING YOUR ADVENTURES",
     )
+
+
 
     private fun scrollToNextImage() {
         val nextIndex = (currentIndex + 1) % childCount
@@ -263,4 +294,23 @@ class UserHomeActivity : Fragment() {
         }
     }
 
+    fun loadImages(imagename : String, banner : ImageView){
+        try {
+            val storageReference = storage.reference
+            val imageRef = storageReference.child("Banners/$imagename")
+
+            imageRef.downloadUrl.addOnSuccessListener { uri ->
+                Picasso.get()
+                    .load(uri)
+                    .placeholder(R.drawable.blank)
+                    .into(banner)
+
+            }.addOnFailureListener {
+                Log.d("TAG", "loadImages: " + it.message)
+            }
+        }
+        catch (e : Exception){
+            Log.d("TAG", "loadImages: " + e.message)
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package dev.falcon.garagefinderpro
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -16,16 +17,20 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
+import kotlin.math.log
 
 class UserProfileActivity : Fragment() {
 
     lateinit var userName : TextView
+    lateinit var userImage : ImageView
     private var db = Firebase.firestore
 
     lateinit var addVehicle : ImageView
@@ -51,6 +56,8 @@ class UserProfileActivity : Fragment() {
         userName = view.findViewById(R.id.userName)
         userName.isSelected = true
 
+        userImage = view.findViewById(R.id.userImage)
+
         var auth = FirebaseAuth.getInstance()
 
         db.collection("users").document(auth.currentUser!!.uid)
@@ -60,6 +67,18 @@ class UserProfileActivity : Fragment() {
 
                     var userName = document.data?.get("name").toString()
                     this.userName.text = userName
+
+                    var userImage = document.data?.get("photo").toString()
+                    Log.d("userImage", userImage)
+                    if (userImage.isEmpty() || userImage == "null"){
+                        this.userImage.setImageResource(R.drawable.blank)
+                    }
+                    else{
+                        Picasso.get()
+                            .load(userImage.toUri())
+                            .placeholder(R.drawable.blank)
+                            .into(this.userImage)
+                    }
                 } else {
                     Toast.makeText(context, "No such document", Toast.LENGTH_SHORT).show()
                 }
@@ -117,7 +136,7 @@ class UserProfileActivity : Fragment() {
                 {
                     if (vehicleNameTxt.matches("^[a-zA-Z]+[a-zA-Z0-9\\s]*[a-zA-Z0-9]\$".toRegex())){
                         if (vehicleNumberTxt.matches("^[A-Za-z]{2}[0-9]{2}[A-Za-z]{2}[0-9]{4}\$".toRegex()) || vehicleNumberTxt.matches("^\\d{2}BH\\d{4}[A-Za-z]{2}\$".toRegex())){
-                            if (vehicleTypeTxt.matches("^[A-Za-z][A-Za-z\\\\s]*[A-Za-z]\$".toRegex())){
+                            if (vehicleTypeTxt in resources.getStringArray(R.array.vehicleType)){
                                 if (fuelTypeTxt.matches("^[A-Za-z][A-Za-z\\\\s]*[A-Za-z]\$".toRegex())){
                                     val vehicle = hashMapOf(
                                         "vehicleName" to vehicleName.text.toString(),
@@ -173,10 +192,6 @@ class UserProfileActivity : Fragment() {
 
             }
         }
-
-
-
-
 
         return view
     }

@@ -112,6 +112,7 @@ class SignUpActivity : AppCompatActivity() {
                                                                                 "type" to whouser,
                                                                                 "name" to name.text.toString(),
                                                                                 "email" to email.text.toString(),
+                                                                                "photo" to "null"
                                                                             )
 
                                                                             db.collection("users").document(auth.currentUser?.uid.toString()).set(userMap)

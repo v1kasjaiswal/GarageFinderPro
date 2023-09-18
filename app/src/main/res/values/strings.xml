@@ -9,10 +9,10 @@
     <string name="api_key">cfe8304bb0mshb6039f76000bf12p1f26e4jsn185ec7a27c8b</string>
 
     <string-array name="vehicleType">
-        <item>Car</item>
-        <item>Bike</item>
-        <item>Scooter</item>
-        <item>Rickshaw</item>
+        <item>Car (4-Wheeler)</item>
+        <item>Bike (2-Wheeler)</item>
+        <item>Scooter (2-Wheeler)</item>
+        <item>Rickshaw (3-Wheeler)</item>
         <item>Truck</item>
         <item>Others</item>
     </string-array>

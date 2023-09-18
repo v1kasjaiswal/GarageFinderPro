@@ -21,8 +21,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_margin="20dp"
                 app:cardCornerRadius="75dp"
                 app:cardElevation="10dp"
@@ -31,10 +31,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/userImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/valiantplayz" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -303,7 +304,7 @@
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/black"
                 android:fontFamily="@font/archivo"
                 android:onClick="signOut"
@@ -321,7 +322,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/archivo"
                 android:text="My Vehicles"
                 android:textColor="@color/offline"
@@ -336,7 +337,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="140dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:src="@drawable/add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.82"
@@ -346,8 +347,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myvehiclesrecyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="610dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="600dp"
+                android:layout_marginTop="45dp"
                 android:scrollbars="none"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/button5"

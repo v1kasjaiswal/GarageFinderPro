@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/homescrollimg1" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/homescrollimg2" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -92,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/homescrollimg3" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/homescrollimg4" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -124,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/homescrollimg5" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -140,7 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/homescrollimg6" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 
@@ -155,7 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/agera" />
+                    android:src="@drawable/blank" />
 
             </androidx.cardview.widget.CardView>
 

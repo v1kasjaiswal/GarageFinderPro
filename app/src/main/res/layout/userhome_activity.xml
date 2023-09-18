@@ -116,10 +116,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/homescrollimg1" />
+                            android:src="@drawable/blank"
+                            android:scaleType="centerCrop" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -132,10 +133,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/homescrollimg2" />
+                            android:src="@drawable/blank" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -148,10 +150,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/homescrollimg3" />
+                            android:src="@drawable/blank" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -164,10 +167,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/homescrollimg4" />
+                            android:src="@drawable/blank" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -180,10 +184,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/homescrollimg5" />
+                            android:src="@drawable/blank" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -196,10 +201,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/homescrollimg6" />
+                            android:src="@drawable/blank" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -211,10 +217,11 @@
                         app:cardCornerRadius="15dp">
 
                         <ImageView
+                            android:id="@+id/homescrollimg7"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/agera" />
+                            android:src="@drawable/blank" />
 
                     </androidx.cardview.widget.CardView>
 
