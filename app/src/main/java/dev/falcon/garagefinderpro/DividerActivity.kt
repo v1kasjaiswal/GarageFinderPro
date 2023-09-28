@@ -77,9 +77,11 @@ class DividerActivity : AppCompatActivity() {
                     .set(userMap)
                     .addOnSuccessListener {
                         if (whouser == "user") {
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             val intent = Intent(this@DividerActivity, UserMainActivity::class.java)
                             startActivity(intent)
                         } else {
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             val intent = Intent(this@DividerActivity, OwnerMainActivity::class.java)
                             startActivity(intent)
                         }

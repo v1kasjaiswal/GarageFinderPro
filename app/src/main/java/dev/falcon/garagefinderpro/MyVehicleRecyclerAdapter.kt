@@ -20,6 +20,7 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
     var vnames = listOf<String>()
     var vnumbers = listOf<String>()
     var vtypes = listOf<String>()
+    var vmodels = listOf<String>()
     var vfueltype = listOf<String>()
 
     var db = Firebase.firestore
@@ -34,6 +35,7 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
                     vnames = vnames + document.data["vehicleName"].toString()
                     vnumbers = vnumbers + document.data["vehicleNumber"].toString()
                     vtypes = vtypes + document.data["vehicleType"].toString()
+                    vmodels = vmodels + document.data["vehicleModel"].toString()
                     vfueltype = vfueltype + document.data["fuelType"].toString()
                 }
                 notifyDataSetChanged()
@@ -57,6 +59,7 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
         holder.vname.text = vnames[position]
         holder.vnumber.text = vnumbers[position]
         holder.vtype.text = vtypes[position]
+        holder.vmodel.text = vmodels[position]
         holder.vfueltype.text = vfueltype[position]
 
         holder.removeVehicle.setOnClickListener {
@@ -64,13 +67,14 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
                 .setTitle("Confirm Deletion")
                 .setMessage("Are you sure you want to delete this vehicle?")
                 .setPositiveButton("Delete") { _, _ ->
-            db.collection("users").document(auth.currentUser!!.uid).collection("vehicles").document(vnames[position].toString())
+            db.collection("users").document(auth.currentUser!!.uid).collection("vehicles").document(vnumbers[position].toString())
                 .delete()
                 .addOnSuccessListener {
                     Toast.makeText(holder.itemView.context, "Vehicle Removed", Toast.LENGTH_SHORT).show()
                     vnames = vnames - vnames[position]
                     vnumbers = vnumbers - vnumbers[position]
                     vtypes = vtypes - vtypes[position]
+                    vmodels = vmodels - vmodels[position]
                     vfueltype = vfueltype - vfueltype[position]
                     notifyDataSetChanged()
                 }
@@ -92,7 +96,7 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
         lateinit var vnumber: TextView
         lateinit var vtype: TextView
         lateinit var vfueltype: TextView
-
+        lateinit var vmodel: TextView
         lateinit var removeVehicle: ImageView
 
         init {
@@ -100,7 +104,7 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
             vnumber = itemView.findViewById(R.id.vnumber)
             vtype = itemView.findViewById(R.id.vtype)
             vfueltype = itemView.findViewById(R.id.vfueltype)
-
+            vmodel = itemView.findViewById(R.id.vmodel)
             removeVehicle = itemView.findViewById(R.id.removeVehicle)
         }
     }

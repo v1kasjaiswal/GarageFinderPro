@@ -40,6 +40,7 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.createBalloon
 import com.squareup.picasso.Picasso
+import io.karn.notify.Notify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -50,7 +51,7 @@ import okio.IOException
 import org.json.JSONException
 import org.json.JSONObject
 
-private val REQUEST_ENABLE_LOCATION = 141
+val REQUEST_ENABLE_LOCATION = 141
 
 class UserHomeActivity : Fragment() {
 
@@ -94,6 +95,33 @@ class UserHomeActivity : Fragment() {
 
         quoteview  = view.findViewById(R.id.quoteview)
 
+        Notify.defaultConfig {
+            header {
+                color = resources.getColor(R.color.grey2)
+                icon = R.drawable.garage
+                showTimestamp = true
+                headerText = "Garage Finder Pro"
+            }
+            alerting(Notify.CHANNEL_DEFAULT_KEY) {
+                lightColor = resources.getColor(R.color.grey2)
+                channelImportance = Notify.IMPORTANCE_MAX
+            }
+        }
+
+        context?.let {
+            Notify
+                .with(it)
+                .content {
+                    title = "Time to Open the Garage!"
+                    text = "Open the garage to start receiving requests from users."
+                }
+                .show()
+        }
+
+
+
+
+
         childCount = linearLayout.childCount
 
         handler.postDelayed(runnable, 3000)
@@ -110,7 +138,7 @@ class UserHomeActivity : Fragment() {
             .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
             setCornerRadius(4f)
             setPadding(10)
-            setAutoDismissDuration(5000L)
+            setAutoDismissDuration(1500L)
             setMargin(10)
             setCornerRadius(6f)
             setText("Click Here to Refresh Location!")

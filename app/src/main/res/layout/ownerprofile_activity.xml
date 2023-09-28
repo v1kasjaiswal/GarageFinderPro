@@ -11,7 +11,7 @@
         android:layout_height="750dp"
         android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -29,15 +29,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/changeCoverImage"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/edit"
-                android:layout_marginRight="15dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/coverImage"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/changeCoverImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/edit" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView8"
@@ -96,10 +106,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/coverImage" />
 
             <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
+                android:id="@+id/garageAddressTxt"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:ellipsize="marquee"
                 android:fontFamily="@font/archivo"
                 android:marqueeRepeatLimit="marquee_forever"
@@ -113,40 +124,101 @@
                 app:layout_constraintTop_toBottomOf="@+id/ownerName" />
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/garageContactTxt"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/archivo"
+                android:text="Contact: 9372xxxx30/9029xxxx81"
+                android:textColor="@color/offline"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/garageAddressTxt"
+                app:layout_constraintStart_toStartOf="@+id/garageAddressTxt"
+                app:layout_constraintTop_toBottomOf="@+id/garageAddressTxt" />
+
+            <TextView
+                android:id="@+id/garageTowingTxt"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/archivo"
+                android:text="Towing Service: Available"
+                android:textColor="@color/offline"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/garageContactTxt"
+                app:layout_constraintStart_toStartOf="@+id/garageContactTxt"
+                app:layout_constraintTop_toBottomOf="@+id/garageContactTxt" />
+
+            <TextView
+                android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="50dp"
                 android:fontFamily="@font/archivo"
-                android:text="Your Garage Timings Here"
+                android:text="Timings: "
+                android:textColor="@color/offline"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/garageTimingsTxt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/garageAddressTxt"
+                app:layout_constraintTop_toBottomOf="@+id/garageAddressTxt" />
+
+            <TextView
+                android:id="@+id/garageTimingsTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="78dp"
+                android:fontFamily="@font/archivo"
+                android:text="Your Garage Timings"
                 android:textColor="@color/offline"
                 android:textSize="15dp"
-                app:layout_constraintStart_toStartOf="@+id/textView15"
+                app:layout_constraintStart_toStartOf="@+id/garageAddressTxt"
                 app:layout_constraintTop_toBottomOf="@+id/cardView8" />
 
+
+
+            <TextView
+                android:id="@+id/garageMinCostTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/archivo"
+                android:text="Min. Service Cost: ₹1000"
+                android:textColor="@color/offline"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/garageTimingsTxt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/garageTimingsTxt" />
+
             <androidx.cardview.widget.CardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:id="@+id/cardView15"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="4dp"
+                app:cardBackgroundColor="@color/grey2"
                 app:cardCornerRadius="50dp"
                 app:cardElevation="5dp"
-                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/ownerName"
                 app:layout_constraintTop_toBottomOf="@+id/ownerName">
 
                 <ImageView
+                    android:id="@+id/updateGarageLocation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="7dp"
+                    android:layout_margin="8dp"
                     android:src="@drawable/navigation" />
 
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/editGarage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="30dp"
                 android:backgroundTint="@color/black"
                 android:fontFamily="@font/archivo"
                 android:paddingLeft="30dp"
@@ -155,14 +227,14 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                app:layout_constraintTop_toBottomOf="@+id/garageTimingsTxt" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/black"
                 android:fontFamily="@font/archivo"
                 android:onClick="signOut"
@@ -172,9 +244,10 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ownerName" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView15" />
 
             <ImageView
+                android:id="@+id/editShowcaseImages"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
@@ -192,15 +265,15 @@
                 android:text="Garage Showcase Images"
                 android:textColor="@color/offline"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/button7"
-                app:layout_constraintTop_toBottomOf="@+id/button7" />
+                app:layout_constraintStart_toStartOf="@+id/editGarage"
+                app:layout_constraintTop_toBottomOf="@+id/editGarage" />
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="155dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -344,9 +417,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/archivo"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/archivo"
                 android:text="Garage Specialization"
                 android:textColor="@color/offline"
                 android:textSize="20sp"
@@ -354,6 +427,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
             <ImageView
+                android:id="@+id/editGarageSpecialization"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="15dp"
@@ -366,16 +440,19 @@
                 android:id="@+id/cardView10"
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginRight="15dp"
+                app:cardBackgroundColor="@color/grey2"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.476"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <TextView
+                    android:id="@+id/specialization1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -384,24 +461,26 @@
                     android:fontFamily="@font/archivo"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:text="● Specialization 1"
+                    android:text="◆  Specialization 1"
                     android:textColor="@color/offline"
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/specialization2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="52dp"
                     android:ellipsize="marquee"
                     android:fontFamily="@font/archivo"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:text="● Specialization 2"
+                    android:text="◆  Specialization 2"
                     android:textColor="@color/offline"
                     android:textSize="20dp" />
 
                 <TextView
+                    android:id="@+id/specialization3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -410,11 +489,12 @@
                     android:fontFamily="@font/archivo"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:text="● Specialization 3"
+                    android:text="◆  Specialization 3"
                     android:textColor="@color/offline"
                     android:textSize="20dp" />
 
                 <TextView
+                    android:id="@+id/specialization4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -423,12 +503,13 @@
                     android:fontFamily="@font/archivo"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:text="● Specialization 4"
+                    android:text="◆  Specialization 4"
                     android:textColor="@color/offline"
                     android:textSize="20dp" />
 
 
                 <TextView
+                    android:id="@+id/specialization5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -438,7 +519,7 @@
                     android:fontFamily="@font/archivo"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:text="● Specialization 5"
+                    android:text="◆  Specialization 5"
                     android:textColor="@color/offline"
                     android:textSize="20dp" />
 
@@ -487,12 +568,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="95dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="10dp"
+                app:cardBackgroundColor="@color/grey2"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView18"
-                app:layout_constraintHorizontal_bias="0.467"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="@+id/textView18"
                 app:layout_constraintTop_toBottomOf="@+id/textView18">
 
@@ -514,7 +596,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/archivo"
-                    android:text="4.5⭐"
+                    android:text="4.5★"
                     android:textColor="@color/offline"
                     android:textSize="15sp" />
 
@@ -550,6 +632,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
+                app:cardBackgroundColor="@color/grey2"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardView14"
@@ -575,7 +658,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/archivo"
-                    android:text="4.5⭐"
+                    android:text="4.5★"
                     android:textColor="@color/offline"
                     android:textSize="15sp" />
 
@@ -613,6 +696,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
+                app:cardBackgroundColor="@color/grey2"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardView11"
@@ -637,7 +721,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/archivo"
-                    android:text="4.5⭐"
+                    android:text="4.5★"
                     android:textColor="@color/offline"
                     android:textSize="15sp" />
 

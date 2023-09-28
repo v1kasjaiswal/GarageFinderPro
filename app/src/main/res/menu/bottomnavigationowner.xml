@@ -15,10 +15,10 @@
         />
 
     <item
-        android:id="@+id/notifications"
-        android:title="Notifications"
-        android:tooltipText="View Notifications"
-        android:icon="@drawable/bell"
+        android:id="@+id/requestsjobs"
+        android:title="Requests and Jobs"
+        android:tooltipText="Requests and Jobs"
+        android:icon="@drawable/job"
         />
 
     <item

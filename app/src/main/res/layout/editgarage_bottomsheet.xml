@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Vehicle Details"
+        android:text="Edit Garage Details"
         android:textSize="20sp"
         android:layout_marginStart="20dp"
         android:textColor="@color/offline"
@@ -32,15 +32,15 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:hint="Vehicle Name"
+            android:hint="Garage Name"
             app:boxStrokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/car">
+            app:startIconDrawable="@drawable/garage">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vehicleName"
+                android:id="@+id/garageName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo"
@@ -56,24 +56,50 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:hint="Vehicle Number"
+            android:hint="Garage Contact 1"
             app:boxStrokeColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout8"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout8"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
-            app:startIconDrawable="@drawable/vnumber">
+            app:startIconDrawable="@drawable/call">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vehicleNumber"
+                android:id="@+id/garageContact1"
                 android:layout_width="match_parent"
-                android:maxLength="10"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo"
-                android:inputType="text"
+                android:inputType="phone"
+                android:maxLength="10"
                 android:textSize="20sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:hint="Garage Contact 2"
+            app:boxStrokeColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout9"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout9"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9"
+            app:startIconDrawable="@drawable/call">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/garageContact2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/archivo"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -81,24 +107,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             app:hintAnimationEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9"
-            app:startIconDrawable="@drawable/cars">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
+            app:startIconDrawable="@drawable/time">
 
             <AutoCompleteTextView
-                android:id="@+id/vehicleType"
+                android:id="@+id/garageOpenTime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/archivo"
                 android:inputType="none"
-                android:text="Vehicle Type"
+                android:text="Garage Open Time"
                 android:textColor="@color/offline"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout10"
@@ -113,63 +140,90 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-            app:startIconDrawable="@drawable/engine">
+            app:startIconDrawable="@drawable/time">
 
             <AutoCompleteTextView
-                android:id="@+id/vehicleModel"
+                android:id="@+id/garageCloseTime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/archivo"
                 android:inputType="none"
-                android:text="Vehicle Model"
+                android:text="Garage Close Time"
                 android:textColor="@color/offline"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout13"
+            android:id="@+id/textInputLayout11"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintAnimationEnabled="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout10"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout10"
+            app:hintAnimationEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout10"
-            app:startIconDrawable="@drawable/fuel">
+            app:startIconDrawable="@drawable/towing">
 
             <AutoCompleteTextView
-                android:id="@+id/fuelType"
+                android:id="@+id/garageTowingService"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/archivo"
                 android:inputType="none"
-                android:text="Fuel Type"
+                android:text="Towing Service"
+                android:textColor="@color/offline"
+                android:textSize="20dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout12"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            app:hintAnimationEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout11"
+            app:startIconDrawable="@drawable/price">
+
+            <AutoCompleteTextView
+                android:id="@+id/garageMinServiceCharge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/archivo"
+                android:inputType="none"
+                android:text="Min. Service Charge"
                 android:textColor="@color/offline"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/saveVehicle"
+            android:id="@+id/updateGarageDetails"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="15dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/archivo"
-            android:text="Add Vehicle"
+            android:text="Update Now!"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout13" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12"
+            app:layout_constraintVertical_bias="0.041" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </LinearLayout>

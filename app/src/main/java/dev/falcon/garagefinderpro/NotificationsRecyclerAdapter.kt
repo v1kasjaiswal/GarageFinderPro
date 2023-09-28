@@ -14,7 +14,7 @@ class NotificationsRecyclerAdapter : RecyclerView.Adapter<NotificationsRecyclerA
     private var images = arrayOf(R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz,R.drawable.valiantplayz)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationsRecyclerAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.notifications_resource, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.usernotifications_resource, parent, false)
         return ViewHolder(v)
     }
 
@@ -36,9 +36,9 @@ class NotificationsRecyclerAdapter : RecyclerView.Adapter<NotificationsRecyclerA
         lateinit var image: ImageView
 
         init {
-            name = itemView.findViewById(R.id.not_name)
-            description = itemView.findViewById(R.id.not_desc)
-            image = itemView.findViewById(R.id.not_image)
+//            name = itemView.findViewById(R.id.not_name)
+//            description = itemView.findViewById(R.id.not_desc)
+//            image = itemView.findViewById(R.id.not_image)
         }
     }
 

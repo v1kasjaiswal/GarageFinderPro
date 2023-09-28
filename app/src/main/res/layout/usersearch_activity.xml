@@ -76,7 +76,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
-                    android:text="Mumbai"
+                    android:text="4-Wheeler"
                     android:textColor="@color/offline"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
@@ -100,7 +100,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
-                    android:text="Mumbai"
+                    android:text="2-Wheeler"
                     android:textColor="@color/offline"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
@@ -124,7 +124,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
-                    android:text="Mumbai"
+                    android:text="3-Wheeler"
                     android:textColor="@color/offline"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
@@ -148,7 +148,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
-                    android:text="Mumbai"
+                    android:text="2-Wheeler"
                     android:textColor="@color/offline"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
@@ -172,7 +172,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
-                    android:text="Mumbai"
+                    android:text="Electric"
                     android:textColor="@color/offline"
                     android:textFontWeight="600"
                     android:textSize="17sp" />
@@ -196,7 +196,7 @@
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/archivo"
                     android:padding="10dp"
-                    android:text="Mumbai"
+                    android:text="Hybrid"
                     android:textColor="@color/offline"
                     android:textFontWeight="600"
                     android:textSize="17sp" />

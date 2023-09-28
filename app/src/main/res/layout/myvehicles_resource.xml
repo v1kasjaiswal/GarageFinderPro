@@ -76,6 +76,21 @@
             android:marqueeRepeatLimit="marquee_forever"/>
 
         <TextView
+            android:id="@+id/vmodel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vehicle Model"
+            android:textSize="14sp"
+            android:textColor="@color/offline"
+            android:fontFamily="@font/archivo"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="37dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"/>
+
+        <TextView
             android:id="@+id/vtype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

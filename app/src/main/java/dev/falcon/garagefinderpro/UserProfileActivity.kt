@@ -1,5 +1,8 @@
 package dev.falcon.garagefinderpro
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,11 +23,15 @@ import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import java.util.UUID
 import kotlin.math.log
 
 class UserProfileActivity : Fragment() {
@@ -41,11 +48,17 @@ class UserProfileActivity : Fragment() {
     lateinit var vehicleName: EditText
     lateinit var vehicleNumber: EditText
     lateinit var vehicleType: AutoCompleteTextView
+    lateinit var vehicleModel: AutoCompleteTextView
     lateinit var fuelType: AutoCompleteTextView
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<MyVehicleRecyclerAdapter.ViewHolder>? = null
     lateinit var recyclerview: RecyclerView
+
+    lateinit var updateUserImage : ImageView
+
+    private lateinit var storageReference: StorageReference
+    private var selectedImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +72,8 @@ class UserProfileActivity : Fragment() {
         userImage = view.findViewById(R.id.userImage)
 
         var auth = FirebaseAuth.getInstance()
+
+        storageReference = FirebaseStorage.getInstance().reference
 
         db.collection("users").document(auth.currentUser!!.uid)
             .get()
@@ -110,14 +125,69 @@ class UserProfileActivity : Fragment() {
             vehicleName = bottomSheetView.findViewById(R.id.vehicleName)
             vehicleNumber = bottomSheetView.findViewById(R.id.vehicleNumber)
             vehicleType = bottomSheetView.findViewById(R.id.vehicleType)
+            vehicleModel = bottomSheetView.findViewById(R.id.vehicleModel)
             fuelType = bottomSheetView.findViewById(R.id.fuelType)
 
-            val vehicelTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            val vehicleTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 resources.getStringArray(R.array.vehicleType)
             )
-            vehicleType.setAdapter(vehicelTypeAdapter)
+            vehicleType.setAdapter(vehicleTypeAdapter)
+
+            vehicleType.setOnItemClickListener { _, _, i, _ ->
+                val type = vehicleTypeAdapter.getItem(i).toString()
+
+                if (type.equals("Car (4-Wheeler)")) {
+
+                    val vehicleModelAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        resources.getStringArray(R.array.CarModels)
+                    )
+                    vehicleModel.setAdapter(vehicleModelAdapter)
+                }
+                else if (type.equals("Bike (2-Wheeler)")){
+                    val vehicleModelAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        resources.getStringArray(R.array.BikeModels)
+                    )
+                    vehicleModel.setAdapter(vehicleModelAdapter)
+                }
+                else if (type.equals("Scooter (2-Wheeler)")){
+                    val vehicleModelAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        resources.getStringArray(R.array.ScooterModels)
+                    )
+                    vehicleModel.setAdapter(vehicleModelAdapter)
+                }
+                else if (type.equals("Rickshaw (3-Wheeler)")){
+                    val vehicleModelAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        resources.getStringArray(R.array.RickshawModels)
+                    )
+                    vehicleModel.setAdapter(vehicleModelAdapter)
+                }
+                else if (type.equals("Truck")){
+                    val vehicleModelAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        resources.getStringArray(R.array.TruckModels)
+                    )
+                    vehicleModel.setAdapter(vehicleModelAdapter)
+                }
+                else if (type.equals("Others")){
+                    val vehicleModelAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        resources.getStringArray(R.array.OtherModels)
+                    )
+                    vehicleModel.setAdapter(vehicleModelAdapter)
+                }
+            }
 
             val fuelTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 requireContext(),
@@ -130,45 +200,69 @@ class UserProfileActivity : Fragment() {
                 var vehicleNameTxt = vehicleName.text.toString()
                 var vehicleNumberTxt = vehicleNumber.text.toString()
                 var vehicleTypeTxt = vehicleType.text.toString()
+                var vehicleModelTxt = vehicleModel.text.toString()
                 var fuelTypeTxt = fuelType.text.toString()
 
-                if (vehicleNameTxt.isNotEmpty() || vehicleNumberTxt.isNotEmpty() || vehicleTypeTxt.isNotEmpty() || fuelTypeTxt.isNotEmpty())
+                if (vehicleNameTxt.isNotEmpty() && vehicleNumberTxt.isNotEmpty() && vehicleTypeTxt.isNotEmpty() && vehicleModelTxt.isNotEmpty() && fuelTypeTxt.isNotEmpty())
                 {
                     if (vehicleNameTxt.matches("^[a-zA-Z]+[a-zA-Z0-9\\s]*[a-zA-Z0-9]\$".toRegex())){
                         if (vehicleNumberTxt.matches("^[A-Za-z]{2}[0-9]{2}[A-Za-z]{2}[0-9]{4}\$".toRegex()) || vehicleNumberTxt.matches("^\\d{2}BH\\d{4}[A-Za-z]{2}\$".toRegex())){
                             if (vehicleTypeTxt in resources.getStringArray(R.array.vehicleType)){
-                                if (fuelTypeTxt.matches("^[A-Za-z][A-Za-z\\\\s]*[A-Za-z]\$".toRegex())){
-                                    val vehicle = hashMapOf(
-                                        "vehicleName" to vehicleName.text.toString(),
-                                        "vehicleNumber" to vehicleNumber.text.toString(),
-                                        "vehicleType" to vehicleType.text.toString(),
-                                        "fuelType" to fuelType.text.toString()
-                                    )
+                                if (vehicleModelTxt.isNotEmpty() && vehicleModelTxt!="Vehicle Model") {
+                                    if (fuelTypeTxt in resources.getStringArray(R.array.fuelType)) {
+                                        val vehicle = hashMapOf(
+                                            "vehicleName" to vehicleName.text.toString()
+                                                .capitalize(),
+                                            "vehicleNumber" to vehicleNumber.text.toString()
+                                                .uppercase(),
+                                            "vehicleType" to vehicleType.text.toString(),
+                                            "vehicleModel" to vehicleModel.text.toString(),
+                                            "fuelType" to fuelType.text.toString()
+                                        )
 
-                                    db.collection("users").document(auth.currentUser!!.uid).collection("vehicles").document(vehicleName.text.toString())
-                                        .set(vehicle)
-                                        .addOnSuccessListener {
-                                            Toast.makeText(context, "Vehicle Added", Toast.LENGTH_SHORT).show()
-                                            bottomSheetDialog.dismiss()
+                                        db.collection("users").document(auth.currentUser!!.uid)
+                                            .collection("vehicles")
+                                            .document(vehicleNumber.text.toString())
+                                            .set(vehicle)
+                                            .addOnSuccessListener {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Vehicle Added",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                bottomSheetDialog.dismiss()
 
-                                            db.collection("users").document(auth.currentUser!!.uid).collection("vehicles")
-                                                .addSnapshotListener { _, error ->
-                                                    if (error != null){
-                                                        Toast.makeText(context, "Error while fetching data!", Toast.LENGTH_SHORT).show()
+                                                db.collection("users")
+                                                    .document(auth.currentUser!!.uid)
+                                                    .collection("vehicles")
+                                                    .addSnapshotListener { _, error ->
+                                                        if (error != null) {
+                                                            Toast.makeText(
+                                                                context,
+                                                                "Error while fetching data!",
+                                                                Toast.LENGTH_SHORT
+                                                            ).show()
+                                                        } else {
+                                                            adapter = MyVehicleRecyclerAdapter()
+                                                            recyclerview.adapter = adapter
+                                                        }
                                                     }
-                                                    else{
-                                                        adapter = MyVehicleRecyclerAdapter()
-                                                        recyclerview.adapter = adapter
-                                                    }
-                                                }
-                                        }
-                                        .addOnFailureListener { e ->
-                                            Toast.makeText(context, "Error while adding Vehicle!", Toast.LENGTH_SHORT).show()
-                                        }
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Toast.makeText(
+                                                    context,
+                                                    "Error while adding Vehicle!",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                    } else {
+                                        fuelType.error = "Please enter a valid fuel type!"
+                                        fuelType.requestFocus()
+                                    }
                                 }
                                 else{
-                                    fuelType.error = "Please enter a valid fuel type!"
-                                    fuelType.requestFocus()
+                                    vehicleModel.error = "Please enter a valid vehicle model!"
+                                    vehicleModel.requestFocus()
                                 }
                             }
                             else{
@@ -193,7 +287,101 @@ class UserProfileActivity : Fragment() {
             }
         }
 
+        updateUserImage = view.findViewById(R.id.updateUserImage)
+
+        updateUserImage.setOnClickListener {
+            imagePicker()
+        }
+
         return view
+    }
+
+    private fun imagePicker(){
+        ImagePicker.with(this)
+            .cropSquare()
+            .compress(1024)
+            .galleryMimeTypes(  //Exclude gif images
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
+                )
+            )
+            .maxResultSize(1080, 1080)
+            .start()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            ImagePicker.REQUEST_CODE -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        selectedImageUri = data?.data
+
+                        uploadImageToFirebaseStorage()
+                    }
+                    ImagePicker.RESULT_ERROR -> {
+                        Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Toast.makeText(context, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            else -> {
+                Toast.makeText(context, "Unrecognized request code", Toast.LENGTH_SHORT).show()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun uploadImageToFirebaseStorage() {
+        val selectedImageUri = selectedImageUri
+        if (selectedImageUri != null) {
+            val filename = UUID.randomUUID().toString()
+            val ref = storageReference.child("images/$filename")
+            ref.putFile(selectedImageUri)
+                .addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+                        Log.d("Image", "File Location: $uri")
+                        val uid = FirebaseAuth.getInstance().currentUser?.uid
+                        if (uid != null) {
+                            db.collection("users").document(uid)
+                                .update("photo", uri.toString())
+                                .addOnSuccessListener {
+                                    Toast.makeText(
+                                        context,
+                                        "Image Uploaded",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    Picasso.get()
+                                        .load(uri)
+                                        .placeholder(R.drawable.blank)
+                                        .into(userImage)
+
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(
+                                        context,
+                                        "Image Upload Failed",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+
+                        } else {
+                            Toast.makeText(context, "User not authenticated", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Image Upload Failed", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(context, "No image selected", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -32,6 +31,28 @@ class UserMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usermain_activity)
+
+        val uid = auth.currentUser?.uid
+
+        val db = Firebase.firestore
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener {
+                val token = it.result.toString()
+
+                if (uid != null) {
+                    db.collection("users").document(uid)
+                        .update("token", token)
+                        .addOnSuccessListener {
+                            Log.d("TAG", "Token Updated")
+                        }
+                        .addOnFailureListener {
+                            Log.d("TAG", "Token Update Failed")
+                        }
+                } else {
+                    Log.d("TAG", "User not authenticated")
+                }
+            }
 
         val gsio = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -162,13 +183,33 @@ class UserMainActivity : AppCompatActivity() {
     fun signOut(view: View) {
 
         try {
-            auth.signOut()
-            googleSignInClient.signOut()
+            FirebaseMessaging.getInstance().deleteToken()
+                .addOnCompleteListener {
+                    val uid = auth.currentUser?.uid
+                    if (uid != null) {
+                        db.collection("users").document(uid)
+                            .update("token", "null")
+                            .addOnSuccessListener {
+                                Log.d("TAG", "Token Deleted")
+                                auth.signOut()
+                                googleSignInClient.signOut()
 
-            val intent = Intent(this@UserMainActivity, SignInActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
+                                val intent = Intent(this@UserMainActivity, SignInActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener {
+                                Log.d("TAG", "Token Deletion Failed")
+                            }
+                    } else {
+                        Log.d("TAG", "User not authenticated")
+                    }
+                }
+                .addOnFailureListener {
+                    Log.d("TAG", "Token Deletion Failed")
+                }
+
 
         } catch (e: Exception) {
             Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()

@@ -17,6 +17,52 @@
         <item>Others</item>
     </string-array>
 
+    <string-array name="CarModels">
+        <item>Mini-Car</item>
+        <item>Sedan</item>
+        <item>Mini-SUV</item>
+        <item>Mid-SUV</item>
+        <item>SUV</item>
+        <item>Sports Car</item>
+        <item>Muscle Car</item>
+        <item>2-Seater Car</item>
+    </string-array>
+
+    <string-array name="BikeModels">
+        <item>Motor Bike</item>
+        <item>Royal Enfield Bike</item>
+        <item>Sports Bike</item>
+        <item>Mountain Bike</item>
+        <item>Heavy Duty Bike</item>
+    </string-array>
+
+    <string-array name="ScooterModels">
+        <item>Motor Scooter</item>
+        <item>Electric Scooter</item>
+        <item>Heavy Duty Scooter</item>
+        <item>Sports Scooter</item>
+    </string-array>
+
+    <string-array name="RickshawModels">
+        <item>Motor Rickshaw</item>
+        <item>Electric Rickshaw</item>
+    </string-array>
+
+    <string-array name="TruckModels">
+        <item>Pick-up Truck</item>
+        <item>Mini-Truck</item>
+        <item>Mid-Truck</item>
+        <item>Heavy Truck</item>
+        <item>Flatbed Truck</item>
+        <item>Trailer Truck</item>
+        <item>Tanker Truck</item>
+    </string-array>
+
+    <string-array name="OtherModels">
+        <item>Others</item>
+    </string-array>
+
+
     <string-array name="fuelType">
         <item>Petrol</item>
         <item>Diesel</item>
@@ -25,4 +71,122 @@
         <item>Electric</item>
         <item>Hybrid</item>
     </string-array>
+
+    <string-array name="garagetimes">
+        <item>00:00</item>
+        <item>00:30</item>
+        <item>01:00</item>
+        <item>01:30</item>
+        <item>02:00</item>
+        <item>02:30</item>
+        <item>03:00</item>
+        <item>03:30</item>
+        <item>04:00</item>
+        <item>04:30</item>
+        <item>05:00</item>
+        <item>05:30</item>
+        <item>06:00</item>
+        <item>06:30</item>
+        <item>07:00</item>
+        <item>07:30</item>
+        <item>08:00</item>
+        <item>08:30</item>
+        <item>09:00</item>
+        <item>09:30</item>
+        <item>10:00</item>
+        <item>10:30</item>
+        <item>11:00</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>13:00</item>
+        <item>13:30</item>
+        <item>14:00</item>
+        <item>14:30</item>
+        <item>15:00</item>
+        <item>15:30</item>
+        <item>16:00</item>
+        <item>16:30</item>
+        <item>17:00</item>
+        <item>17:30</item>
+        <item>18:00</item>
+        <item>18:30</item>
+        <item>19:00</item>
+        <item>19:30</item>
+        <item>20:00</item>
+        <item>20:30</item>
+        <item>21:00</item>
+        <item>21:30</item>
+        <item>22:00</item>
+        <item>22:30</item>
+        <item>23:00</item>
+        <item>23:30</item>
+    </string-array>
+
+    <string-array name="specializations">
+        <item>4-Wheeler</item>
+        <item>2-Wheeler</item>
+        <item>3-Wheeler</item>
+        <item>Truck</item>
+        <item>Electric and Hybrid</item>
+        <item>Off-road and 4x4</item>
+        <item>Highly Trained Technicians</item>
+        <item>Performance Tuning</item>
+        <item>Suspension Tuning</item>
+        <item>Diesel Performance Tuning</item>
+        <item>Car Wash</item>
+        <item>Hydraulic Systems Repair</item>
+        <item>Convertible Roof Repair</item>
+        <item>Transmission Rebuilding</item>
+        <item>Turbo-Charge Upgrade</item>
+        <item>Engine Oil Specialist</item>
+        <item>Interior Modification</item>
+        <item>Diesel Engine Specialist</item>
+        <item>Paint and Bodywork</item>
+        <item>Performance Parts Sales</item>
+        <item>Vehicle Accessories</item>
+        <item>Air Conditioning and HVAC</item>
+        <item>Car Audio and Electronics</item>
+        <item>Collision Repair</item>
+        <item>Wheel Alignment</item>
+        <item>Emissions and Inspection</item>
+        <item>Vintage Car Restoration</item>
+        <item>Vintage Bike Restoration</item>
+        <item>Heavy-Duty Trucks</item>
+        <item>Exhaust System Modification</item>
+        <item>Drift Car Modification</item>
+        <item>Lights Modification</item>
+    </string-array>
+
+    <string-array name="garagetows">
+        <item>Available</item>
+        <item>Not Available</item>
+    </string-array>
+
+
+    <string-array name="garagecharges">
+        <item>₹50 - ₹250</item>
+        <item>₹250 - ₹500</item>
+        <item>₹500 - ₹1000</item>
+        <item>₹1000 - ₹2000</item>
+        <item>₹2000 - ₹5000</item>
+        <item>₹5000 - ₹10000</item>
+        <item>More than ₹10000</item>
+    </string-array>
+
+    <string-array name="serviceTypes">
+        <item>Flat Tyre</item>
+        <item>Engine Failure</item>
+        <item>Engine Oil Change</item>
+        <item>Brake Pads Change</item>
+        <item>Clutch Plate Change</item>
+        <item>Automobile Wash</item>
+        <item>Wheel Alignment</item>
+        <item>Wheel Balancing</item>
+        <item>Battery Change</item>
+        <item>AC Repair</item>
+        <item>Other</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
