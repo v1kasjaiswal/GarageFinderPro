@@ -2,7 +2,9 @@ package dev.falcon.garagefinderpro
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -42,15 +44,45 @@ class FCMNotificationService : FirebaseMessagingService() {
             Log.d("FCM", "sendRequest")
 
             Notify.with(applicationContext)
+                .meta {
+                    clickIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        Intent(applicationContext, SplashActivity::class.java),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                }
                 .asBigText {
                     title = remoteMessage.data["title"].toString()
                     bigText = "\nDetails:\n" +
                             "Service Type: " + remoteMessage.data["serviceType"].toString() +
                             "\nVehicle Name: " + remoteMessage.data["vehicleName"].toString() +
                             " " + remoteMessage.data["vehicleType"].toString() +
+                            "\nVehicle Number: " + remoteMessage.data["vehicleNumber"].toString() +
                             "\nFuel Type: " + remoteMessage.data["vehicleFuelType"].toString() +
                             "\nVehicle Model: " + remoteMessage.data["vehicleModel"].toString() +
                             "\nTow Service: " + remoteMessage.data["towLocation"].toString()
+                    expandedText = remoteMessage.data["body"].toString()
+                }
+                .show()
+        }
+        else if (remoteMessage.data["notificationType"]=="jobcardUpdate"){
+            Notify.with(applicationContext)
+                .meta {
+                    clickIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        Intent(applicationContext, SplashActivity::class.java),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                }
+                .asBigText {
+                    title = remoteMessage.data["title"].toString()
+                    bigText = "\nDetails:\n" +
+                            "Vehicle Name: " + remoteMessage.data["vehicleName"].toString() +
+                            "\nVehicle Number: " + remoteMessage.data["vehicleNumber"].toString() +
+                            "\nServiceType: " + remoteMessage.data["serviceType"].toString() +
+                            "\nStatus: " + remoteMessage.data["status"].toString()
                     expandedText = remoteMessage.data["body"].toString()
                 }
                 .show()

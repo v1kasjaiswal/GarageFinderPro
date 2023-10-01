@@ -12,12 +12,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import io.karn.notify.Notify
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class OwnerHomeActivity : Fragment() {
 
     lateinit var garageSwitch : MaterialSwitch
     lateinit var garageStatus : TextView
 
+    lateinit var totalRequests : TextView
+    lateinit var totalJobcards : TextView
+
+    lateinit var jobcardOnPending : TextView
+    lateinit var jobcardOnGoing : TextView
+    lateinit var jobcardCompleted : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,15 +53,12 @@ class OwnerHomeActivity : Fragment() {
                 }
             }
 
-//        if the garageSwitch is on then change the status of the garage to open else closed and update in the database
         garageSwitch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
                 db.collection("users").document(auth.currentUser!!.uid)
                     .update("garageStatus", "Open")
                     .addOnSuccessListener {
                         garageStatus.text = "Open"
-
-
                     }
                     .addOnFailureListener {
                         garageSwitch.isChecked = false
@@ -71,6 +76,75 @@ class OwnerHomeActivity : Fragment() {
             }
         }
 
+        totalRequests = view.findViewById(R.id.totalRequests)
+        totalJobcards = view.findViewById(R.id.totalJobcards)
+
+        jobcardOnPending = view.findViewById(R.id.jobcardOnPending)
+        jobcardOnGoing = view.findViewById(R.id.jobcardOnGoing)
+        jobcardCompleted = view.findViewById(R.id.jobcardCompleted)
+
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+
+        db.collection("jobcards")
+            .whereEqualTo("garageId", auth.currentUser!!.uid)
+            .whereEqualTo("status", "Pending")
+            .whereEqualTo("status", "In Progress")
+            .whereEqualTo("status", "Completed")
+            .whereEqualTo("date", dateFormat.format(Date()))
+            .get()
+            .addOnSuccessListener {
+                totalJobcards.text = "Total Jobcards: " + it.size().toString()
+            }
+            .addOnFailureListener {
+                totalJobcards.text = "Total Jobcards: 00"
+            }
+
+        db.collection("jobcards")
+            .whereEqualTo("garageId", auth.currentUser!!.uid)
+            .whereEqualTo("date", dateFormat.format(Date()))
+            .get()
+            .addOnSuccessListener {
+                totalRequests.text = "Total Requests: " + it.size().toString()
+            }
+            .addOnFailureListener {
+                totalRequests.text = "Total Requests: 00"
+            }
+
+        db.collection("jobcards")
+            .whereEqualTo("garageId", auth.currentUser!!.uid)
+            .whereEqualTo("status", "Pending")
+            .whereEqualTo("date", dateFormat.format(Date()))
+            .get()
+            .addOnSuccessListener {
+                jobcardOnPending.text = it.size().toString()
+            }
+            .addOnFailureListener {
+                jobcardOnPending.text = "00"
+            }
+
+        db.collection("jobcards")
+            .whereEqualTo("garageId", auth.currentUser!!.uid)
+            .whereEqualTo("status", "In Progress")
+            .whereEqualTo("date", dateFormat.format(Date()))
+            .get()
+            .addOnSuccessListener {
+                jobcardOnGoing.text = it.size().toString()
+            }
+            .addOnFailureListener {
+                jobcardOnGoing.text = "00"
+            }
+
+        db.collection("jobcards")
+            .whereEqualTo("garageId", auth.currentUser!!.uid)
+            .whereEqualTo("status", "Completed")
+            .whereEqualTo("date", dateFormat.format(Date()))
+            .get()
+            .addOnSuccessListener {
+                jobcardCompleted.text = it.size().toString()
+            }
+            .addOnFailureListener {
+                jobcardCompleted.text = "00"
+            }
 
         return view
     }

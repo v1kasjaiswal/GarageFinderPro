@@ -95,33 +95,6 @@ class UserHomeActivity : Fragment() {
 
         quoteview  = view.findViewById(R.id.quoteview)
 
-        Notify.defaultConfig {
-            header {
-                color = resources.getColor(R.color.grey2)
-                icon = R.drawable.garage
-                showTimestamp = true
-                headerText = "Garage Finder Pro"
-            }
-            alerting(Notify.CHANNEL_DEFAULT_KEY) {
-                lightColor = resources.getColor(R.color.grey2)
-                channelImportance = Notify.IMPORTANCE_MAX
-            }
-        }
-
-        context?.let {
-            Notify
-                .with(it)
-                .content {
-                    title = "Time to Open the Garage!"
-                    text = "Open the garage to start receiving requests from users."
-                }
-                .show()
-        }
-
-
-
-
-
         childCount = linearLayout.childCount
 
         handler.postDelayed(runnable, 3000)

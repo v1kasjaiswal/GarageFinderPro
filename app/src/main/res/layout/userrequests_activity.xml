@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Request Processing Panel"
+        android:text="Requests Sent"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
@@ -38,7 +38,7 @@
         app:startIconDrawable="@drawable/garage">
 
         <AutoCompleteTextView
-            android:id="@+id/statusType"
+            android:id="@+id/requestedStatus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/archivo"
@@ -49,7 +49,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ownerRequestsJobsRecyclerView"
+        android:id="@+id/userRequestsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="610dp"
         android:layout_marginTop="5dp"/>

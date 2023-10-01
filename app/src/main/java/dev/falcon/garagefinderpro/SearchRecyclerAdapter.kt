@@ -30,6 +30,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -46,6 +47,7 @@ import org.json.JSONObject
 
 class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>()
 {
+    var garageIds = listOf<String>()
     var garageNames = listOf<String>()
     var garageAddresses = listOf<String>()
     var garageTimings = listOf<String>()
@@ -98,6 +100,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 for (document in documents) {
                     if(document.data["type"].toString() == "garageowner")
                     {
+                        garageIds = garageIds + document.id
                         garageNames = garageNames + document.data["name"].toString()
                         garageAddresses = garageAddresses + document.data["garageAddress"].toString()
                         garageTimings = garageTimings + ("Timing: "+document.data["garageTime"].toString())
@@ -243,6 +246,8 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
             )
             serviceTypeTxt.setAdapter(serviceTypeAdapter)
 
+            requestServiceSubmit = bottomSheetView2.findViewById(R.id.requestServiceSubmit)
+
             db.collection("users").document(auth.currentUser!!.uid).collection("vehicles")
                 .get()
                 .addOnSuccessListener { documents ->
@@ -250,6 +255,14 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                     for (document in documents) {
                         vehicleWhich = vehicleWhich + document.data["vehicleNumber"].toString()
                     }
+
+
+                    if (vehicleWhich.size == 0)
+                    {
+                        vehicleWhich = vehicleWhich + "No Vehicle Added"
+                        requestServiceSubmit.isEnabled = false
+                    }
+
                     vehicleWhichTxt = bottomSheetView2.findViewById(R.id.vehicleWhich)
                     val vehicleWhichAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
                         holder.itemView.context,
@@ -262,12 +275,31 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                     Log.d("TAG", "onCreateView: ${it.message}")
                 }
 
-            towRequired = bottomSheetView2.findViewById(R.id.towRequired)
 
-            requestServiceSubmit = bottomSheetView2.findViewById(R.id.requestServiceSubmit)
+
+            towRequired = bottomSheetView2.findViewById(R.id.towRequired)
+            var warningmsg = bottomSheetView2.findViewById<TextView>(R.id.warningmsg)
+
+            if (garageTowing[position] == "Available") {
+                towRequired.visibility = View.VISIBLE
+                warningmsg.visibility = View.VISIBLE
+            }
+            else{
+                towRequired.visibility = View.GONE
+                warningmsg.visibility = View.GONE
+            }
+
+
+            if (garageStatus[position] == "Open") {
+                requestServiceSubmit.isEnabled = true
+                requestServiceSubmit.setBackgroundColor(holder.itemView.context.resources.getColor(R.color.black))
+            }
+            else{
+                requestServiceSubmit.isEnabled = false
+                requestServiceSubmit.setBackgroundColor(holder.itemView.context.resources.getColor(R.color.grey))
+            }
 
             var towLocation : String = ""
-
 
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(holder.itemView.context)
 
@@ -407,6 +439,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                                     .get()
                                     .addOnSuccessListener { documents ->
                                         var vehicleName = ""
+                                        var vehicleNumber = ""
                                         var vehicleFuelType = ""
                                         var vehicleType = ""
                                         var vehicleModel = ""
@@ -414,6 +447,8 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                                             if (document.data["vehicleNumber"].toString() == vehicleWhichTxt.text.toString()) {
                                                 vehicleName =
                                                     document.data["vehicleName"].toString()
+                                                vehicleNumber =
+                                                    document.data["vehicleNumber"].toString().dropLast(2)+"XX"
                                                 vehicleFuelType =
                                                     document.data["fuelType"].toString()
                                                 vehicleType =
@@ -423,10 +458,13 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                                             }
                                         }
                                         sendRequestNotification(
+                                            garageIds[position],
+                                            garageNames[position],
                                             auth.currentUser!!.displayName.toString(),
                                             tokens[position],
                                             serviceTypeTxt.text.toString(),
                                             vehicleName,
+                                            vehicleNumber,
                                             vehicleFuelType,
                                             vehicleType,
                                             vehicleModel,
@@ -496,7 +534,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         }
     }
 
-    fun sendRequestNotification(name: String, token: String, serviceType: String, vehicleName: String, vehicleFuelType: String, vehicleType: String, vehicleModel: String, towLocation: String)
+    fun sendRequestNotification(garageId: String, garageName: String,name: String, token: String, serviceType: String, vehicleName: String, vehicleNumber: String, vehicleFuelType: String, vehicleType: String, vehicleModel: String, towLocation: String)
     {
         var jsonObject = JSONObject()
         var jsonObjectData = JSONObject()
@@ -505,6 +543,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         jsonObjectData.put("body", "You have a new service request from $name")
         jsonObjectData.put("serviceType", serviceType)
         jsonObjectData.put("vehicleName", vehicleName)
+        jsonObjectData.put("vehicleNumber", vehicleNumber)
         jsonObjectData.put("vehicleFuelType", vehicleFuelType)
         jsonObjectData.put("vehicleType", vehicleType)
         jsonObjectData.put("vehicleModel", vehicleModel)
@@ -517,30 +556,62 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         jsonObject.put("data", jsonObjectData)
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                processNotification(jsonObject)
+                processNotification(jsonObject, garageId, garageName)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun processNotification(jsonObject: JSONObject){
-        var mediaType = "application/json; charset=utf-8".toMediaType()
+    fun processNotification(jsonObject: JSONObject, garageId: String, garageName: String){
+            var mediaType = "application/json; charset=utf-8".toMediaType()
 
-        var client = OkHttpClient()
+            var client = OkHttpClient()
 
-        var url = "https://fcm.googleapis.com/fcm/send"
+            var url = "https://fcm.googleapis.com/fcm/send"
 
-        var body = jsonObject.toString().toRequestBody(mediaType)
+            var body = jsonObject.toString().toRequestBody(mediaType)
 
-        var request = okhttp3.Request.Builder()
-            .url(url)
-            .post(body)
-            .addHeader("Authorization", "Bearer AAAAshwHFJE:APA91bFuSH0ZtxwwLZV8RAJORY6xsV15MQpRR7QohdR7lWnqHmN3mTgWtsEzUD7Y-V8U4pezDqO84Yr6EAfHdYw1mN37h8N-LqIxahAhPID422V_v2jX0AzBWyjiHPVbrtr74Uol7z8O")
-            .build()
+            var request = okhttp3.Request.Builder()
+                .url(url)
+                .post(body)
+                .addHeader("Authorization", "Bearer AAAAshwHFJE:APA91bFuSH0ZtxwwLZV8RAJORY6xsV15MQpRR7QohdR7lWnqHmN3mTgWtsEzUD7Y-V8U4pezDqO84Yr6EAfHdYw1mN37h8N-LqIxahAhPID422V_v2jX0AzBWyjiHPVbrtr74Uol7z8O")
+                .build()
 
-        var response = client.newCall(request).execute()
+            var response = client.newCall(request).execute()
 
-        Log.d("TAG", "processNotification: ${response.body!!.string()}")
+        if (response.isSuccessful){
+
+            var hashMap = hashMapOf<String, Any>(
+                "userId" to auth.currentUser!!.uid,
+                "name" to auth.currentUser!!.displayName.toString(),
+                "garageId" to garageId,
+                "garageName" to garageName,
+                "date" to java.text.SimpleDateFormat("dd/MM/yyyy").format(java.util.Date()),
+                "serviceType" to jsonObject.getJSONObject("data").getString("serviceType"),
+                "vehicleName" to jsonObject.getJSONObject("data").getString("vehicleName"),
+                "vehicleNumber" to jsonObject.getJSONObject("data").getString("vehicleNumber"),
+                "vehicleType" to jsonObject.getJSONObject("data").getString("vehicleType"),
+                "vehicleFuelType" to jsonObject.getJSONObject("data").getString("vehicleFuelType"),
+                "vehicleModel" to jsonObject.getJSONObject("data").getString("vehicleModel"),
+                "towLocation" to jsonObject.getJSONObject("data").getString("towLocation"),
+                "status" to "New Requests"
+            )
+
+            db.collection("jobcards")
+                .add(hashMap)
+                .addOnSuccessListener {
+                    Log.d("TAG", "processNotification: Success")
+                }
+                .addOnFailureListener {
+                    Log.d("TAG", "processNotification: Failed")
+                }
+
+
+            Snackbar.make(moreInfoGarage, "Request Sent Successfully!", Snackbar.LENGTH_SHORT).show()
+        }
+        else{
+            Log.d("TAG", "processNotification: Failed")
+        }
     }
 }

@@ -177,6 +177,7 @@ class SignInActivity : AppCompatActivity() {
                                     user?.photoUrl.toString()
                                 )
                                 intent.putExtra("googleSignInId", user?.uid)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
                             }
                         } else {

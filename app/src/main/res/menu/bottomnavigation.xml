@@ -22,11 +22,10 @@
         />
 
     <item
-        android:id="@+id/notifications"
-        android:title="Notifications"
-        android:tooltipText="View Notifications"
-        android:icon="@drawable/bell"
-    />
+        android:id="@+id/requests"
+        android:icon="@drawable/job"
+        android:title="Requests"
+        android:tooltipText="View Requests" />
 
     <item
         android:id="@+id/profile"

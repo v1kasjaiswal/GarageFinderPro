@@ -84,7 +84,7 @@ class UserMainActivity : AppCompatActivity() {
                     bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home_dark)
                     bottomnavbar.menu.findItem(R.id.search).icon = resources.getDrawable(R.drawable.search)
                     bottomnavbar.menu.findItem(R.id.navigation).icon = resources.getDrawable(R.drawable.marker)
-                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.requests).icon = resources.getDrawable(R.drawable.job)
                     bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
 
                     supportFragmentManager
@@ -99,7 +99,7 @@ class UserMainActivity : AppCompatActivity() {
                     bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
                     bottomnavbar.menu.findItem(R.id.search).icon = resources.getDrawable(R.drawable.search_dark)
                     bottomnavbar.menu.findItem(R.id.navigation).icon = resources.getDrawable(R.drawable.marker)
-                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.requests).icon = resources.getDrawable(R.drawable.job)
                     bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
 
                     supportFragmentManager
@@ -114,7 +114,7 @@ class UserMainActivity : AppCompatActivity() {
                     bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
                     bottomnavbar.menu.findItem(R.id.search).icon = resources.getDrawable(R.drawable.search)
                     bottomnavbar.menu.findItem(R.id.navigation).icon = resources.getDrawable(R.drawable.marker_dark)
-                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.requests).icon = resources.getDrawable(R.drawable.job)
                     bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
 
 
@@ -126,18 +126,18 @@ class UserMainActivity : AppCompatActivity() {
 
                     true
                 }
-                R.id.notifications -> {
+                R.id.requests -> {
 
                     bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
                     bottomnavbar.menu.findItem(R.id.search).icon = resources.getDrawable(R.drawable.search)
                     bottomnavbar.menu.findItem(R.id.navigation).icon = resources.getDrawable(R.drawable.marker)
-                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell_dark)
+                    bottomnavbar.menu.findItem(R.id.requests).icon = resources.getDrawable(R.drawable.job_dark)
                     bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user)
 
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                        .replace(R.id.container, UserNotificationActivity())
+                        .replace(R.id.container, UserRequestsActivity())
                         .commit()
                     true
                 }
@@ -146,7 +146,7 @@ class UserMainActivity : AppCompatActivity() {
                     bottomnavbar.menu.findItem(R.id.home).icon = resources.getDrawable(R.drawable.home)
                     bottomnavbar.menu.findItem(R.id.search).icon = resources.getDrawable(R.drawable.search)
                     bottomnavbar.menu.findItem(R.id.navigation).icon = resources.getDrawable(R.drawable.marker)
-                    bottomnavbar.menu.findItem(R.id.notifications).icon = resources.getDrawable(R.drawable.bell)
+                    bottomnavbar.menu.findItem(R.id.requests).icon = resources.getDrawable(R.drawable.job)
                     bottomnavbar.menu.findItem(R.id.profile).icon = resources.getDrawable(R.drawable.user_dark)
 
 
@@ -160,10 +160,7 @@ class UserMainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
-
-
 
     override fun onResume() {
         super.onResume()

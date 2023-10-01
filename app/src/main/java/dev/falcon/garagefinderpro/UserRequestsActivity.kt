@@ -7,57 +7,62 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class OwnerRequestsJobsActivity : Fragment() {
+class UserRequestsActivity : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<OwnerRequestsJobsRecyclerAdapter.ViewHolder>? = null
+    private var adapter: RecyclerView.Adapter<UserRequestsRecyclerAdapter.ViewHolder>? = null
     lateinit var recyclerview: RecyclerView
 
-    lateinit var statusType : AutoCompleteTextView
+    lateinit var requestedStatus : AutoCompleteTextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.ownerrequestsjobs_activity, container, false)
+        var view = inflater.inflate(R.layout.userrequests_activity, container, false)
 
-        recyclerview = view.findViewById(R.id.ownerRequestsJobsRecyclerView)
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+        }
+
+        recyclerview = view.findViewById(R.id.userRequestsRecyclerView)
 
         layoutManager = LinearLayoutManager(context)
         recyclerview.layoutManager = layoutManager
 
-        adapter = OwnerRequestsJobsRecyclerAdapter()
+        adapter = UserRequestsRecyclerAdapter()
         recyclerview.adapter = adapter
 
-        statusType = view.findViewById(R.id.statusType)
+        requestedStatus = view.findViewById(R.id.requestedStatus)
 
-        var statuses = arrayOf<String>("New Requests","Pending", "In Progress", "Declined", "Completed", "Cancelled")
+        var statuses = arrayOf<String>("Pending", "In Progress", "Declined", "Completed", "Cancelled")
         val statusTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_list_item_1,
             statuses
         )
-        statusType.setAdapter(statusTypeAdapter)
+        requestedStatus.setAdapter(statusTypeAdapter)
 
-        statusType.setOnItemClickListener { _, _, i, _ ->
+        requestedStatus.setOnItemClickListener { _, _, i, _ ->
             var status = statuses[i]
 
             if (recyclerview.adapter is OwnerRequestsJobsRecyclerAdapter) {
 
-                val adapter = recyclerview.adapter as OwnerRequestsJobsRecyclerAdapter
-                adapter.filterData(status)
+                val adapter = recyclerview.adapter as UserRequestsRecyclerAdapter
+                adapter.filterRequestedData(status)
             }
         }
 
-        statusType.setText("New Requests", false)
-
+        requestedStatus.setText("Pending", false)
 
         return view
     }
+
 
 }

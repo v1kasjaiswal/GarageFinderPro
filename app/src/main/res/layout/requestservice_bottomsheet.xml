@@ -78,14 +78,15 @@
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/warningmsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="-12dp"
+        android:layout_marginRight="20dp"
         android:fontFamily="@font/archivo"
-        android:textColor="@color/grey"
         android:text="*Current Location will be used as the pickup location"
+        android:textColor="@color/grey"
         android:textSize="12sp" />
 
     <Button

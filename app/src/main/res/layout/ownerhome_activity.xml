@@ -114,7 +114,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView13">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/totalRequests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -126,7 +126,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/totalJobcards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -227,7 +227,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/petrolPriceText"
+                android:id="@+id/jobcardOnPending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center |bottom"
@@ -253,12 +253,12 @@
                 android:layout_gravity="center |top"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/archivo"
-                android:text="Completed"
+                android:text="On Going"
                 android:textColor="@color/offline"
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/dieselPriceText"
+                android:id="@+id/jobcardOnGoing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center |bottom"
@@ -284,12 +284,12 @@
                 android:layout_gravity="center |top"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/archivo"
-                android:text="Cancelled"
+                android:text="Completed"
                 android:textColor="@color/offline"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/cngPriceText"
+                android:id="@+id/jobcardCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center |bottom"
