@@ -15,16 +15,43 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="10dp"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="15dp"
             app:cardElevation="3dp">
 
-            <ImageView
-                android:id="@+id/requesterImage"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:layout_margin="20dp"
-                android:src="@drawable/tools"/>
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/grey2"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/requesterMaps"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/navigation"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitCenter" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:cardBackgroundColor="@color/grey2"
+                android:layout_margin="5dp"
+                android:layout_gravity="bottom"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/requesterCall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/call"
+                    android:scaleType="fitCenter" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
 
@@ -103,110 +130,110 @@
                 android:id="@+id/requesterMoreDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:animateLayoutChanges="true"
-                android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/archivo"
-                android:text="Details: "
-                android:textColor="@color/offline"
-                android:textSize="20dp" />
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
-                android:id="@+id/requesterVehicleName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/archivo"
-                android:text="Vehicle Name: Vehicle Name"
-                android:textColor="@color/offline"
-                android:textSize="15dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Details: "
+                    android:textColor="@color/offline"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/requesterVehicleType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/archivo"
-                android:text="Vehicle Type: Vehicle Type"
-                android:textColor="@color/offline"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/requesterVehicleName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Vehicle Name: Vehicle Name"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/requesterVehicleModel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/archivo"
-                android:text="Vehicle Model: Vehicle Model"
-                android:textColor="@color/offline"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/requesterVehicleType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Vehicle Type: Vehicle Type"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/requesterVehicleNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/archivo"
-                android:text="Vehicle Number: Vehicle Number"
-                android:textColor="@color/offline"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/requesterVehicleModel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Vehicle Model: Vehicle Model"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/requesterFuelType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/archivo"
-                android:text="Fuel Type: Fuel Type"
-                android:textColor="@color/offline"
-                android:textSize="15dp"/>
+                <TextView
+                    android:id="@+id/requesterVehicleNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Vehicle Number: Vehicle Number"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/requesterTowRequired"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/archivo"
-                android:text="Tow Required: Yes/No"
-                android:textColor="@color/offline"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/requesterFuelType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Fuel Type: Fuel Type"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/acceptRequest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:backgroundTint="@color/black"
-                android:fontFamily="@font/archivo"
-                android:paddingLeft="50dp"
-                android:paddingRight="50dp"
-                android:text="Accept"
-                android:textColor="@color/white"
-                android:textSize="15dp"/>
+                <TextView
+                    android:id="@+id/requesterTowRequired"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Tow Required: Yes/No"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/declineRequest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-53dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:backgroundTint="@color/black"
-                android:fontFamily="@font/archivo"
-                android:paddingLeft="55dp"
-                android:paddingRight="55dp"
-                android:text="Decline"
-                android:textColor="@color/white"
-                android:textSize="15dp"/>
+                <Button
+                    android:id="@+id/acceptRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/archivo"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="Accept"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/declineRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-53dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/archivo"
+                    android:paddingLeft="55dp"
+                    android:paddingRight="55dp"
+                    android:text="Decline"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/statusesUpdateLayout"
@@ -215,8 +242,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    app:hintAnimationEnabled="true"
                     android:visibility="gone"
+                    app:hintAnimationEnabled="true"
                     app:startIconDrawable="@drawable/garage">
 
                     <AutoCompleteTextView
@@ -235,16 +262,68 @@
                     android:id="@+id/updateStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Update Status"
-                    android:visibility="gone"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginBottom="5dp"
                     android:backgroundTint="@color/black"
                     android:fontFamily="@font/archivo"
-                    android:layout_marginRight="15dp"
+                    android:text="Update Status"
                     android:textColor="@color/white"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/requesterRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Rating: 1.0"
+                    android:textColor="@color/offline"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/requesterReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Review: "
+                    android:textColor="@color/offline"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/requesterFinalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Final Amount: "
+                    android:textColor="@color/offline"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/requesterPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Payment: "
+                    android:textColor="@color/offline"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

@@ -19,7 +19,7 @@
             app:cardElevation="3dp">
 
             <ImageView
-                android:id="@+id/requesterImage"
+                android:id="@+id/requestedImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/requesterName"
+                android:id="@+id/requestedName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
@@ -58,7 +58,7 @@
                 android:textSize="15dp" />
 
             <TextView
-                android:id="@+id/requestedName"
+                android:id="@+id/requestedGarageName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
@@ -88,7 +88,7 @@
                 android:textSize="15dp" />
 
             <TextView
-                android:id="@+id/requesterMoreInfo"
+                android:id="@+id/requestedMoreInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom |right"
@@ -101,7 +101,7 @@
 
 
             <LinearLayout
-                android:id="@+id/requesterMoreDetails"
+                android:id="@+id/requestedMoreDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -178,19 +178,88 @@
                     android:textColor="@color/offline"
                     android:textSize="15dp" />
 
-                <Button
-                    android:id="@+id/cancelRequest"
+
+
+                <TextView
+                    android:id="@+id/requestedRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="-53dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Rating: "
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/requestedReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Review: "
+                    android:textColor="@color/offline"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/requestedFinalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Final Amount: "
+                    android:textColor="@color/offline"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/requestedPaymentStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Payment: "
+                    android:textColor="@color/offline"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/requestedCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginBottom="5dp"
                     android:backgroundTint="@color/black"
                     android:fontFamily="@font/archivo"
-                    android:paddingLeft="55dp"
-                    android:paddingRight="55dp"
-                    android:text="Decline"
+                    android:text="Cancel Request"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"/>
+
+                <Button
+                    android:id="@+id/paymentButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:text="Payment"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/archivo"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"/>
+
+                <Button
+                    android:id="@+id/reviewButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:text="Leave a Review"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/archivo"
                     android:textColor="@color/white"
                     android:textSize="15dp"/>
 

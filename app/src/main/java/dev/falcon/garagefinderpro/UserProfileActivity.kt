@@ -20,11 +20,13 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -59,6 +61,8 @@ class UserProfileActivity : Fragment() {
 
     private lateinit var storageReference: StorageReference
     private var selectedImageUri: Uri? = null
+
+    lateinit var addContact : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -291,6 +295,67 @@ class UserProfileActivity : Fragment() {
 
         updateUserImage.setOnClickListener {
             imagePicker()
+        }
+
+        addContact = view.findViewById(R.id.addContact)
+
+        addContact.setOnClickListener {
+            // Create a custom view for the dialog
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.addcontact_dialog, null)
+            val contactNumberEditText = dialogView.findViewById<EditText>(R.id.contactNumber)
+
+//            get the contact from database and if it is not null then set the texxt of contactNumberEditText  to contact
+            db.collection("users").document(auth.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        var contact = document.data?.get("contact").toString()
+                        if (contact.isNotEmpty() && contact.matches("^[6-9]\\d{9}\$".toRegex())){
+                            contactNumberEditText.setText(contact)
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+
+
+            val alertDialog = MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Add Contact Number")
+                .setView(dialogView)
+                .setPositiveButton("Save", null) // Set positive button with null click listener
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+                val contactNumber = contactNumberEditText.text.toString()
+
+                if (contactNumber.isNotEmpty() && contactNumber.matches("^[6-9]\\d{9}\$".toRegex())) {
+                    val userDocRef = db.collection("users").document(auth.currentUser!!.uid)
+
+                    userDocRef.update("contact", contactNumber)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                context,
+                                "Contact Added",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            alertDialog.dismiss() // Dismiss the dialog after successful addition
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(
+                                context,
+                                "Error while adding Contact!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                } else {
+                    contactNumberEditText.error = "Please enter a valid contact number!"
+                    contactNumberEditText.requestFocus()
+                }
+            }
         }
 
         return view

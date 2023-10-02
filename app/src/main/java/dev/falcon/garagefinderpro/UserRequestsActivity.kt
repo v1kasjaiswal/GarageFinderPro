@@ -26,11 +26,6 @@ class UserRequestsActivity : Fragment() {
     ): View? {
         var view = inflater.inflate(R.layout.userrequests_activity, container, false)
 
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.show()
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-        }
-
         recyclerview = view.findViewById(R.id.userRequestsRecyclerView)
 
         layoutManager = LinearLayoutManager(context)
@@ -41,7 +36,7 @@ class UserRequestsActivity : Fragment() {
 
         requestedStatus = view.findViewById(R.id.requestedStatus)
 
-        var statuses = arrayOf<String>("Pending", "In Progress", "Declined", "Completed", "Cancelled")
+        var statuses = arrayOf<String>("New Requests", "Pending", "In Progress", "Declined", "Completed", "Cancelled")
         val statusTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_list_item_1,
@@ -52,14 +47,14 @@ class UserRequestsActivity : Fragment() {
         requestedStatus.setOnItemClickListener { _, _, i, _ ->
             var status = statuses[i]
 
-            if (recyclerview.adapter is OwnerRequestsJobsRecyclerAdapter) {
+            if (recyclerview.adapter is UserRequestsRecyclerAdapter) {
 
                 val adapter = recyclerview.adapter as UserRequestsRecyclerAdapter
                 adapter.filterRequestedData(status)
             }
         }
 
-        requestedStatus.setText("Pending", false)
+        requestedStatus.setText("New Requests", false)
 
         return view
     }

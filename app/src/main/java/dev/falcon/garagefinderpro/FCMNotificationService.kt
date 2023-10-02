@@ -87,6 +87,90 @@ class FCMNotificationService : FirebaseMessagingService() {
                 }
                 .show()
         }
+        else if (remoteMessage.data["notificationType"]=="cancelJobcard"){
+            Notify.with(applicationContext)
+                .meta {
+                    clickIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        Intent(applicationContext, SplashActivity::class.java),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                }
+                .asBigText {
+                    title = remoteMessage.data["title"].toString()
+                    bigText = "\nDetails:\n" +
+                            "Vehicle Name: " + remoteMessage.data["vehicleName"].toString() +
+                            "\nVehicle Number: " + remoteMessage.data["vehicleNumber"].toString() +
+                            "\nServiceType: " + remoteMessage.data["serviceType"].toString() +
+                            "\nStatus: " + remoteMessage.data["status"].toString()
+                    expandedText = remoteMessage.data["body"].toString()
+                }
+                .show()
+        }
+        else if (remoteMessage.data["notificationType"]=="jobcardReview"){
+            Notify.with(applicationContext)
+                .meta {
+                    clickIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        Intent(applicationContext, SplashActivity::class.java),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                }
+                .asBigText {
+                    title = remoteMessage.data["title"].toString()
+                    bigText = "\nDetails:\n" +
+                            "Vehicle Name: " + remoteMessage.data["vehicleName"].toString() +
+                            "\nVehicle Number: " + remoteMessage.data["vehicleNumber"].toString() +
+                            "\nRating: " + remoteMessage.data["rating"].toString() +
+                            "\nReview: \n" + remoteMessage.data["reviewText"].toString()
+                    expandedText = remoteMessage.data["body"].toString()
+                }
+        }
+        else if (remoteMessage.data["notificationType"]=="paymentJobcard"){
+            Notify.with(applicationContext)
+                .meta {
+                    clickIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        Intent(applicationContext, SplashActivity::class.java),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                }
+                .asBigText {
+                    title = remoteMessage.data["title"].toString()
+                    bigText = "\nDetails:\n" +
+                            "Vehicle Name: " + remoteMessage.data["vehicleName"].toString() +
+                            "\nVehicle Number: " + remoteMessage.data["vehicleNumber"].toString() +
+                            "\nServiceType: " + remoteMessage.data["serviceType"].toString() +
+                            "\nStatus: " + remoteMessage.data["status"].toString()
+                    expandedText = remoteMessage.data["body"].toString()
+                }
+                .show()
+        }
+        else if (remoteMessage.data["notificationType"]=="paymentComplete"){
+            Notify.with(applicationContext)
+                .meta {
+                    clickIntent = PendingIntent.getActivity(
+                        applicationContext,
+                        0,
+                        Intent(applicationContext, SplashActivity::class.java),
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                }
+                .asBigText {
+                    title = remoteMessage.data["title"].toString()
+                    bigText = "\nDetails:\n" +
+                            "Vehicle Name: " + remoteMessage.data["vehicleName"].toString() +
+                            "\nVehicle Number: " + remoteMessage.data["vehicleNumber"].toString() +
+                            "\nServiceType: " + remoteMessage.data["serviceType"].toString() +
+                            "\nStatus: " + remoteMessage.data["status"].toString()
+                    expandedText = remoteMessage.data["body"].toString()
+                }
+                .show()
+        }
+
     }
 }
 

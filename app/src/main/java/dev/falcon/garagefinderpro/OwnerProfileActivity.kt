@@ -22,12 +22,17 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -38,6 +43,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -98,6 +104,8 @@ class OwnerProfileActivity : Fragment() {
     lateinit var specialization4 : TextView
     lateinit var specialization5 : TextView
 
+    lateinit var garageRatings : RatingBar
+
     lateinit var updateGarageSpecialization : Button
 
     lateinit var updateGarageDetails : Button
@@ -105,6 +113,10 @@ class OwnerProfileActivity : Fragment() {
     var whichImage : String = "null"
 
     val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+    private var layoutManager: RecyclerView.LayoutManager? = null
+    private var adapter: RecyclerView.Adapter<DetailsReviewRecyclerAdapter.ViewHolder>? = null
+    lateinit var recyclerview: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -135,6 +147,17 @@ class OwnerProfileActivity : Fragment() {
         specialization3 = view.findViewById(R.id.specialization3)
         specialization4 = view.findViewById(R.id.specialization4)
         specialization5 = view.findViewById(R.id.specialization5)
+
+        garageRatings = view.findViewById(R.id.ratingBar)
+
+        recyclerview = view.findViewById(R.id.detailsReviewsRecyclerView)
+
+        layoutManager = LinearLayoutManager(context)
+        recyclerview.layoutManager = layoutManager
+
+        adapter = DetailsReviewRecyclerAdapter(uid.toString())
+
+        recyclerview.adapter = adapter
 
         val handler = Looper.getMainLooper().let { Handler(it) }
 
@@ -215,6 +238,19 @@ class OwnerProfileActivity : Fragment() {
                         specialization4.text = "◆  " + garageSpecializationArray?.get(3)
                         specialization5.text = "◆  " + garageSpecializationArray?.get(4)
                     }
+
+                    val garageRatingsText = document.getField<Float>("rating").toString()
+                    if (garageRatingsText.isNullOrEmpty()){
+                        garageRatings.rating = 1.0F
+                    }else{
+                        if (garageRatingsText == "null"){
+                            garageRatings.rating = 1.0F
+                        }
+                        else{
+                            garageRatings.rating = garageRatingsText.substring(0,3).toFloat()
+                        }
+                    }
+
                 } else {
                     Toast.makeText(context, "No such document", Toast.LENGTH_SHORT).show()
                 }

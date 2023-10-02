@@ -15,7 +15,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -78,6 +77,27 @@
                 app:layout_constraintStart_toEndOf="@+id/cardView3"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/grey2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toStartOf="@+id/button5"
+                app:layout_constraintHorizontal_bias="0.32"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                app:layout_constraintTop_toBottomOf="@+id/userName">
+
+                <ImageView
+                    android:id="@+id/addContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/addcontact" />
+
+            </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
@@ -122,39 +142,17 @@
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/archivo"
-                android:text="My Requests"
-                android:textColor="@color/offline"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myvehiclesrecyclerview" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myvehiclesrecyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="275dp"
+                android:layout_height="600dp"
                 android:layout_marginTop="45dp"
                 android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/button5"
                 app:layout_constraintHorizontal_bias="0.855"
                 app:layout_constraintStart_toStartOf="@+id/button5"
                 app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/myrequestsrecyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="275dp"
-                android:layout_marginTop="40dp"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="@+id/myvehiclesrecyclerview"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/myvehiclesrecyclerview"
-                app:layout_constraintTop_toBottomOf="@+id/myvehiclesrecyclerview" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

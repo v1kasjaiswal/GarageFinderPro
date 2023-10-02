@@ -16,14 +16,18 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -31,6 +35,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -91,30 +96,41 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
     lateinit var towRequired : CheckBox
     lateinit var requestServiceSubmit : Button
 
+    lateinit var detailsGarageRatings : RatingBar
+
+    lateinit var contact: String
+
+    private var layoutManager: RecyclerView.LayoutManager? = null
+    private var adapter: RecyclerView.Adapter<DetailsReviewRecyclerAdapter.ViewHolder>? = null
+    lateinit var recyclerview: RecyclerView
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     init {
         db.collection("users")
+            .whereEqualTo("type","garageowner")
+            .whereNotEqualTo("garageSpecialization", null)
             .get()
             .addOnSuccessListener { documents ->
+                Log.d("TAG", "onCreateView: Success ${documents}")
+
                 for (document in documents) {
-                    if(document.data["type"].toString() == "garageowner")
-                    {
-                        garageIds = garageIds + document.id
-                        garageNames = garageNames + document.data["name"].toString()
-                        garageAddresses = garageAddresses + document.data["garageAddress"].toString()
-                        garageTimings = garageTimings + ("Timing: "+document.data["garageTime"].toString())
-                        tokens = tokens + document.data["token"].toString()
-                        garageMinCost = garageMinCost + ("Min. Service Cost: "+document.data["garageServiceCost"].toString())
-                        garageTowing = garageTowing + document.data["garageTowing"].toString()
-                        garageContact1 = garageContact1 + document.data["garageContact1"].toString()
-                        garageContact2 = garageContact2 + document.data["garageContact2"].toString()
-//                    garageRatings = garageRatings + document.data["garageRatings"].toString()
-                        garageStatus = garageStatus + document.data["garageStatus"].toString()
-                        garagePhoto = garagePhoto + document.data["photo"].toString()
-                        garageCover = garageCover + document.data["cover"].toString()
-                        garageSpecialization = garageSpecialization + document.data["garageSpecialization"].toString()
-                    }
+
+                    garageIds = garageIds + document.id
+                    garageNames = garageNames + document.data["name"].toString()
+                    garageAddresses = garageAddresses + document.data["garageAddress"].toString()
+                    garageTimings = garageTimings + ("Timing: "+document.data["garageTime"].toString())
+                    tokens = tokens + document.data["token"].toString()
+                    garageMinCost = garageMinCost + ("Min. Service Cost: "+document.data["garageServiceCost"].toString())
+                    garageTowing = garageTowing + document.data["garageTowing"].toString()
+                    garageContact1 = garageContact1 + document.data["garageContact1"].toString()
+                    garageContact2 = garageContact2 + document.data["garageContact2"].toString()
+                    garageRatings = garageRatings + document.data["rating"].toString()
+                    garageStatus = garageStatus + document.data["garageStatus"].toString()
+                    garagePhoto = garagePhoto + document.data["photo"].toString()
+                    garageCover = garageCover + document.data["cover"].toString()
+                    garageSpecialization = garageSpecialization + document.data["garageSpecialization"].toString()
+
                 }
                 notifyDataSetChanged()
             }
@@ -141,17 +157,22 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         holder.garageAddress.text = garageAddresses[position]
         holder.garageTiming.text = garageTimings[position]
         holder.garageMinCost.text = garageMinCost[position]
-//        holder.garageRating.text = garageRatings[position]
+        if (garageRatings[position].toString()=="null"){
+            holder.garageRating.text = "1.0★"
+        }
+        else{
+            holder.garageRating.text = garageRatings[position].toString().substring(0,3)+"★"
+        }
         Picasso.get().load(garagePhoto[position].toUri()).into(holder.garagePhoto)
         holder.garageStatus.text = garageStatus[position]
 
         var specialization = garageSpecialization[position].split(",")
 
-        holder.garageSpecialization1.text = specialization[0]
-        holder.garageSpecialization2.text = specialization[1]
-        holder.garageSpecialization3.text = specialization[2]
-        holder.garageSpecialization4.text = specialization[3]
-        holder.garageSpecialization5.text = specialization[4]
+        holder.garageSpecialization1.text = specialization[0] ?: ""
+        holder.garageSpecialization2.text = specialization[1] ?: ""
+        holder.garageSpecialization3.text = specialization[2] ?: ""
+        holder.garageSpecialization4.text = specialization[3] ?: ""
+        holder.garageSpecialization5.text = specialization[4] ?: ""
 
         var bottomSheetDialog = BottomSheetDialog(holder.itemView.context)
         val bottomSheetView = LayoutInflater.from(holder.itemView.context).inflate(R.layout.moredetails_bottomsheet, null)
@@ -184,6 +205,8 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
             detailsGarageTowing.text = "Towing Serivce: " + garageTowing[position]
             detailsGarageMinCost.text = garageMinCost[position]
             detailsGarageStatus.text = "Status: " + garageStatus[position]
+
+            detailsGarageRatings = bottomSheetView.findViewById(R.id.detailsRatingBar)
 
             detailsGarageCall1.setOnClickListener {
                 if (garageContact1[position] != null && garageContact1[position].isNotEmpty())
@@ -228,8 +251,23 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 holder.itemView.context.startActivity(intent)
             }
 
-        }
+            if (garageRatings[position].toString()=="null"){
+                detailsGarageRatings.rating = 1.0F
+            }
+            else{
+                detailsGarageRatings.rating = garageRatings[position].toString().substring(0,3).toFloat()
+            }
 
+            recyclerview = bottomSheetView.findViewById(R.id.detailsReviewsRecyclerView)
+
+            layoutManager = LinearLayoutManager(holder.itemView.context)
+            recyclerview.layoutManager = layoutManager
+
+            adapter = DetailsReviewRecyclerAdapter(garageIds[position])
+
+            recyclerview.adapter = adapter
+
+        }
 
         var bottomSheetDialog2 = BottomSheetDialog(holder.itemView.context)
         val bottomSheetView2 = LayoutInflater.from(holder.itemView.context).inflate(R.layout.requestservice_bottomsheet, null)
@@ -252,10 +290,10 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 .get()
                 .addOnSuccessListener { documents ->
                     var vehicleWhich = listOf<String>()
+
                     for (document in documents) {
                         vehicleWhich = vehicleWhich + document.data["vehicleNumber"].toString()
                     }
-
 
                     if (vehicleWhich.size == 0)
                     {
@@ -276,6 +314,16 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 }
 
 
+
+            db.collection("users").document(auth.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener {
+                    contact = it.data!!["contact"].toString()
+                    Log.d("CONTACTS", "onBindViewHolder: $contact")
+                }
+                .addOnFailureListener {
+                    Log.d("TAG", "onCreateView: ${it.message}")
+                }
 
             towRequired = bottomSheetView2.findViewById(R.id.towRequired)
             var warningmsg = bottomSheetView2.findViewById<TextView>(R.id.warningmsg)
@@ -457,6 +505,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                                                     document.data["vehicleModel"].toString()
                                             }
                                         }
+
                                         sendRequestNotification(
                                             garageIds[position],
                                             garageNames[position],
@@ -468,7 +517,8 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                                             vehicleFuelType,
                                             vehicleType,
                                             vehicleModel,
-                                            towLocation
+                                            towLocation,
+                                            contact
                                         )
                                     }
                                     .addOnFailureListener {
@@ -519,7 +569,9 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
 
         init {
             garageName = itemView.findViewById(R.id.garageName)
+            garageName.isSelected = true
             garageAddress = itemView.findViewById(R.id.garageAddress)
+            garageAddress.isSelected = true
             garageTiming = itemView.findViewById(R.id.garageTiming)
             garageMinCost = itemView.findViewById(R.id.garageMinCost)
             garageRating = itemView.findViewById(R.id.garageRating)
@@ -534,7 +586,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         }
     }
 
-    fun sendRequestNotification(garageId: String, garageName: String,name: String, token: String, serviceType: String, vehicleName: String, vehicleNumber: String, vehicleFuelType: String, vehicleType: String, vehicleModel: String, towLocation: String)
+    fun sendRequestNotification(garageId: String, garageName: String,name: String, token: String, serviceType: String, vehicleName: String, vehicleNumber: String, vehicleFuelType: String, vehicleType: String, vehicleModel: String, towLocation: String, contact : String)
     {
         var jsonObject = JSONObject()
         var jsonObjectData = JSONObject()
@@ -548,6 +600,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         jsonObjectData.put("vehicleType", vehicleType)
         jsonObjectData.put("vehicleModel", vehicleModel)
         jsonObjectData.put("towLocation", towLocation)
+        jsonObjectData.put("contact", contact)
         jsonObjectData.put("notificationType", "sendRequest")
 
         Log.d("TAG", "sendRequestNotification: $jsonObjectData")
@@ -587,7 +640,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 "name" to auth.currentUser!!.displayName.toString(),
                 "garageId" to garageId,
                 "garageName" to garageName,
-                "date" to java.text.SimpleDateFormat("dd/MM/yyyy").format(java.util.Date()),
+                "date" to java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(java.util.Date()),
                 "serviceType" to jsonObject.getJSONObject("data").getString("serviceType"),
                 "vehicleName" to jsonObject.getJSONObject("data").getString("vehicleName"),
                 "vehicleNumber" to jsonObject.getJSONObject("data").getString("vehicleNumber"),
@@ -595,6 +648,7 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 "vehicleFuelType" to jsonObject.getJSONObject("data").getString("vehicleFuelType"),
                 "vehicleModel" to jsonObject.getJSONObject("data").getString("vehicleModel"),
                 "towLocation" to jsonObject.getJSONObject("data").getString("towLocation"),
+                "contact" to jsonObject.getJSONObject("data").getString("contact"),
                 "status" to "New Requests"
             )
 

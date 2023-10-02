@@ -36,7 +36,7 @@ class OwnerRequestsJobsActivity : Fragment() {
 
         statusType = view.findViewById(R.id.statusType)
 
-        var statuses = arrayOf<String>("New Requests","Pending", "In Progress", "Declined", "Completed", "Cancelled")
+        var statuses = arrayOf<String>("New Requests","Pending", "In Progress", "Declined", "Completed")
         val statusTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_list_item_1,
