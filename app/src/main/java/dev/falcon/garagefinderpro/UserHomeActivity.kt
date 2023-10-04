@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -24,6 +25,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
+import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
@@ -33,6 +35,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.ArrowPositionRules
@@ -75,6 +81,15 @@ class UserHomeActivity : Fragment() {
     lateinit var banner6 : ImageView
     lateinit var banner7 : ImageView
 
+    lateinit var fluidlevels : ImageView
+    lateinit var batterycare : ImageView
+    lateinit var tyrecare : ImageView
+    lateinit var wheelalign :  ImageView
+    lateinit var radiatorcare : ImageView
+    lateinit var brakecare : ImageView
+
+    lateinit var settings : ImageView
+
     var currentIndex = 0
     var childCount = 0
 
@@ -84,11 +99,20 @@ class UserHomeActivity : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    lateinit var articleImage : ImageView
+    lateinit var articleTitle : TextView
+    lateinit var articleDescription : TextView
+
+    var db = Firebase.firestore
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         var view = inflater.inflate(R.layout.userhome_activity, container, false)
+
+        var bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.caretips_bottomsheet, null)
+        bottomSheetDialog.setContentView(bottomSheetView)
 
         horizontalScrollView = view.findViewById(R.id.horizontalScrollView)
         linearLayout = view.findViewById(R.id.linearLayout)
@@ -144,6 +168,13 @@ class UserHomeActivity : Fragment() {
         banner6 = view.findViewById(R.id.homescrollimg6)
         banner7 = view.findViewById(R.id.homescrollimg7)
 
+        fluidlevels = view.findViewById(R.id.fluidlevels)
+        batterycare = view.findViewById(R.id.batterycare)
+        tyrecare = view.findViewById(R.id.tyrecare)
+        wheelalign = view.findViewById(R.id.wheelalign)
+        radiatorcare = view.findViewById(R.id.radiatorcare)
+        brakecare = view.findViewById(R.id.brakecare)
+
         loadImages("homescrollimg1.jpg", banner1)
         loadImages("homescrollimg2.jpg", banner2)
         loadImages("homescrollimg3.jpg", banner3)
@@ -151,6 +182,197 @@ class UserHomeActivity : Fragment() {
         loadImages("homescrollimg5.jpg", banner5)
         loadImages("homescrollimg6.jpg", banner6)
         loadImages("homescrollimg7.jpg", banner7)
+
+        loadImages("fluidlevels.jpg", fluidlevels)
+        loadImages("batterycare.jpg", batterycare)
+        loadImages("tyrecare.jpg", tyrecare)
+        loadImages("wheelalign.jpeg", wheelalign)
+        loadImages("radiatorcare.jpg", radiatorcare)
+        loadImages("brakecare.jpg", brakecare)
+
+
+        fluidlevels.setOnClickListener {
+            bottomSheetDialog.show()
+
+            db.collection("caretips")
+                .get()
+                .addOnSuccessListener { document ->
+                    articleImage = bottomSheetView.findViewById(R.id.articleImage)
+                    articleTitle = bottomSheetView.findViewById(R.id.articleTopic)
+                    articleDescription = bottomSheetView.findViewById(R.id.articleDescription)
+
+                    loadImages("fluidlevels.jpg", articleImage)
+
+                    articleTitle.text = "Fluid Levels"
+
+                    if (document != null) {
+                        articleDescription.text = document.documents[0].data?.get("fluidlevels").toString()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+        }
+
+        batterycare.setOnClickListener {
+            bottomSheetDialog.show()
+
+            db.collection("caretips")
+                .get()
+                .addOnSuccessListener { document ->
+                    articleImage = bottomSheetView.findViewById(R.id.articleImage)
+                    articleTitle = bottomSheetView.findViewById(R.id.articleTopic)
+                    articleDescription = bottomSheetView.findViewById(R.id.articleDescription)
+
+                    loadImages("batterycare.jpg", articleImage)
+
+                    articleTitle.text = "Battery Care"
+
+                    if (document != null) {
+                        articleDescription.text = document.documents[0].data?.get("batterycare").toString()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+        }
+
+        tyrecare.setOnClickListener {
+            bottomSheetDialog.show()
+
+            db.collection("caretips")
+                .get()
+                .addOnSuccessListener { document ->
+                    articleImage = bottomSheetView.findViewById(R.id.articleImage)
+                    articleTitle = bottomSheetView.findViewById(R.id.articleTopic)
+                    articleDescription = bottomSheetView.findViewById(R.id.articleDescription)
+
+                    loadImages("tyrecare.jpg", articleImage)
+
+                    articleTitle.text = "Tyre Care"
+
+                    if (document != null) {
+                        articleDescription.text = document.documents[0].data?.get("tyrecare").toString()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+        }
+
+        wheelalign.setOnClickListener {
+            bottomSheetDialog.show()
+
+            db.collection("caretips")
+                .get()
+                .addOnSuccessListener { document ->
+                    articleImage = bottomSheetView.findViewById(R.id.articleImage)
+                    articleTitle = bottomSheetView.findViewById(R.id.articleTopic)
+                    articleDescription = bottomSheetView.findViewById(R.id.articleDescription)
+
+                    loadImages("wheelalign.jpeg", articleImage)
+
+                    articleTitle.text = "Wheel Alignment"
+
+                    if (document != null) {
+                        articleDescription.text = document.documents[0].data?.get("wheelalign").toString()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+        }
+
+        radiatorcare.setOnClickListener {
+            bottomSheetDialog.show()
+
+            db.collection("caretips")
+                .get()
+                .addOnSuccessListener { document ->
+                    articleImage = bottomSheetView.findViewById(R.id.articleImage)
+                    articleTitle = bottomSheetView.findViewById(R.id.articleTopic)
+                    articleDescription = bottomSheetView.findViewById(R.id.articleDescription)
+
+                    loadImages("radiatorcare.jpg", articleImage)
+
+                    articleTitle.text = "Radiator Care"
+
+                    if (document != null) {
+                        articleDescription.text = document.documents[0].data?.get("radiatorcare").toString()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+        }
+
+        brakecare.setOnClickListener {
+            bottomSheetDialog.show()
+
+            db.collection("caretips")
+                .get()
+                .addOnSuccessListener { document ->
+                    articleImage = bottomSheetView.findViewById(R.id.articleImage)
+                    articleTitle = bottomSheetView.findViewById(R.id.articleTopic)
+                    articleDescription = bottomSheetView.findViewById(R.id.articleDescription)
+
+                    loadImages("brakecare.jpg", articleImage)
+
+                    articleTitle.text = "Brake Care"
+
+                    if (document != null) {
+                        articleDescription.text = document.documents[0].data?.get("brakecare").toString()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+        }
+
+
+        settings = view.findViewById(R.id.settings)
+
+        settings.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), settings)
+            popupMenu.inflate(R.menu.popup_menu)
+
+            // Set a click listener for the popup menu items
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.notifications -> {
+                        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                        startActivity(intent)
+                        true
+                    }
+                    R.id.privacy -> {
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle("Privacy Policy")
+                            .setMessage("At Garage Finder Pro!, we prioritize your privacy. When using our Android app, Garage Finder Pro!, we may collect and utilize your precise location data solely for providing towing services and sharing it with garage owners as required. This information assists us in offering efficient and timely services. We are committed to protecting your data; however, please note that absolute security cannot be guaranteed online. You have the option to opt-out of location sharing, although it may affect the app's functionality. By using our app, you agree to these terms. If you have any questions or concerns, please don't hesitate to contact us.")
+                            .setPositiveButton("OK") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+
+                        true
+                    }
+                    R.id.about ->{
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle("About Us")
+                            .setMessage("Hi, I am Vikas Jaiswal, the developer of this app. I am a Computer Science Student. I have developed this app to help people find the best garages for their automobile's need. This app also helps users to get the fuel prices in their city. This app also provides some tips to take care of your vehicle. I hope you like this app. ")
+                            .setPositiveButton("OK") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            popupMenu.show()
+
+        }
 
         return view
     }

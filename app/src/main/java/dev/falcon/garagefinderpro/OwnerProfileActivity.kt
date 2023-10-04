@@ -11,6 +11,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -42,6 +43,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
@@ -104,13 +106,25 @@ class OwnerProfileActivity : Fragment() {
     lateinit var specialization4 : TextView
     lateinit var specialization5 : TextView
 
+    lateinit var bannerscroll1 : ImageView
+    lateinit var bannerscroll2 : ImageView
+    lateinit var bannerscroll3 : ImageView
+    lateinit var bannerscroll4 : ImageView
+    lateinit var bannerscroll5 : ImageView
+    lateinit var bannerscroll6 : ImageView
+    lateinit var bannerscroll7 : ImageView
+
     lateinit var garageRatings : RatingBar
 
     lateinit var updateGarageSpecialization : Button
 
     lateinit var updateGarageDetails : Button
 
+    lateinit var deleteShowcaseImages : ImageView
+
     var whichImage : String = "null"
+
+    val REQUESTS_CODE = 666
 
     val uid = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -141,6 +155,14 @@ class OwnerProfileActivity : Fragment() {
         garageContactTxt = view.findViewById(R.id.garageContactTxt)
         garageTowingTxt = view.findViewById(R.id.garageTowingTxt)
         garageMinCostTxt = view.findViewById(R.id.garageMinCostTxt)
+
+        bannerscroll1 = view.findViewById(R.id.bannerscroll1)
+        bannerscroll2 = view.findViewById(R.id.bannerscroll2)
+        bannerscroll3 = view.findViewById(R.id.bannerscroll3)
+        bannerscroll4 = view.findViewById(R.id.bannerscroll4)
+        bannerscroll5 = view.findViewById(R.id.bannerscroll5)
+        bannerscroll6 = view.findViewById(R.id.bannerscroll6)
+        bannerscroll7 = view.findViewById(R.id.bannerscroll7)
 
         specialization1 = view.findViewById(R.id.specialization1)
         specialization2 = view.findViewById(R.id.specialization2)
@@ -222,6 +244,34 @@ class OwnerProfileActivity : Fragment() {
 
                     val garageServiceCost = document.getString("garageServiceCost")
                     garageMinCostTxt.text = "Min. Service Cost: " + garageServiceCost
+
+                    val garageShowcaseImages = document.get("showcaseImages") as List<String>?
+
+                    if (garageShowcaseImages.isNullOrEmpty()){
+                        bannerscroll1.setImageResource(R.drawable.blank)
+                        bannerscroll2.setImageResource(R.drawable.blank)
+                        bannerscroll3.setImageResource(R.drawable.blank)
+                        bannerscroll4.setImageResource(R.drawable.blank)
+                        bannerscroll5.setImageResource(R.drawable.blank)
+                        bannerscroll6.setImageResource(R.drawable.blank)
+                        bannerscroll7.setImageResource(R.drawable.blank)
+                    }else{
+
+                        val imageViews = listOf(bannerscroll1, bannerscroll2, bannerscroll3, bannerscroll4, bannerscroll5, bannerscroll6, bannerscroll7)
+
+                        for (i in 0 until imageViews.size) {
+                            if (i < garageShowcaseImages.size) {
+                                Picasso.get()
+                                    .load(garageShowcaseImages[i].toUri())
+                                    .placeholder(R.drawable.blank)
+                                    .into(imageViews[i])
+                            } else {
+                                imageViews[i].setImageResource(R.drawable.blank)
+                            }
+                        }
+
+
+                    }
 
                     val garageSpecialization = document.getString("garageSpecialization")
                     if (garageSpecialization.isNullOrEmpty()) {
@@ -828,6 +878,55 @@ class OwnerProfileActivity : Fragment() {
             }
 
         }
+
+        deleteShowcaseImages = view.findViewById(R.id.deleteShowcaseImages)
+
+        deleteShowcaseImages.setOnClickListener {
+            MaterialAlertDialogBuilder(view.context)
+                .setTitle("Delete Showcase Images")
+                .setMessage("Are you sure you want to delete your showcase images?")
+                .setPositiveButton("Delete") { _, _ ->
+                    if (uid != null) {
+
+                        db.collection("users").document(uid)
+                            .update("showcaseImages", FieldValue.delete())
+                            .addOnSuccessListener {
+                                Toast.makeText(
+                                    context,
+                                    "Showcase Images Deleted",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                bannerscroll1.setImageResource(R.drawable.blank)
+                                bannerscroll2.setImageResource(R.drawable.blank)
+                                bannerscroll3.setImageResource(R.drawable.blank)
+                                bannerscroll4.setImageResource(R.drawable.blank)
+                                bannerscroll5.setImageResource(R.drawable.blank)
+                                bannerscroll6.setImageResource(R.drawable.blank)
+                                bannerscroll7.setImageResource(R.drawable.blank)
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(
+                                    context,
+                                    "Showcase Images Delete Failed",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "User not authenticated",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                .setNegativeButton("Cancel") { _, _ ->
+                    Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
+                }
+                .show()
+        }
+
+
         return view
     }
 
@@ -847,7 +946,23 @@ class OwnerProfileActivity : Fragment() {
     }
     
     private fun multiImagePicker(){
-
+        if (Build.VERSION.SDK_INT < 19) {
+            var intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(
+                Intent.createChooser(intent, "Choose Pictures")
+                , REQUESTS_CODE
+            )
+        }
+        else { // For latest versions API LEVEL 19+
+            var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            startActivityForResult(intent, REQUESTS_CODE);
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -871,8 +986,75 @@ class OwnerProfileActivity : Fragment() {
                     }
                 }
             }
+            REQUESTS_CODE -> {
+                val uid = FirebaseAuth.getInstance().currentUser?.uid
+                val maxImageLimit = 7
 
-            else -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    db.collection("users").document(uid!!)
+                        .get()
+                        .addOnSuccessListener { documentSnapshot ->
+                            val showcaseImages = documentSnapshot.get("showcaseImages") as List<String>?
+                            val initialImagesCount = showcaseImages?.size ?: 0
+
+                            if (initialImagesCount >= maxImageLimit) {
+                                Toast.makeText(context, "Max limit of images is 7", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val count = data?.clipData?.itemCount ?: 0
+                                for (i in 0 until count) {
+                                    val imageUri = data?.clipData?.getItemAt(i)?.uri
+                                    if (imageUri != null) {
+                                        val filename = UUID.randomUUID().toString()
+                                        val ref = storageReference.child("images/$filename")
+
+                                        ref.putFile(imageUri)
+                                            .addOnSuccessListener { taskSnapshot ->
+                                                taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+                                                    Log.d("Image", "File Location: $uri")
+                                                    val uid = FirebaseAuth.getInstance().currentUser?.uid
+                                                    if (uid != null) {
+                                                        db.collection("users").document(uid)
+                                                            .update(
+                                                                "showcaseImages",
+                                                                FieldValue.arrayUnion(uri.toString())
+                                                            )
+                                                            .addOnSuccessListener {
+                                                                Log.d("Image", "File Location: $it")
+
+                                                                val imageViews = listOf(bannerscroll1, bannerscroll2, bannerscroll3, bannerscroll4, bannerscroll5, bannerscroll6, bannerscroll7)
+
+                                                                for (i in 0 until imageViews.size) {
+                                                                    if (i < showcaseImages?.size ?: 0) {
+                                                                        Picasso.get()
+                                                                            .load(showcaseImages?.get(i)?.toUri())
+                                                                            .placeholder(R.drawable.blank)
+                                                                            .into(imageViews[i])
+                                                                    } else {
+                                                                        imageViews[i].setImageResource(R.drawable.blank)
+                                                                    }
+                                                                }
+                                                            }
+                                                            .addOnFailureListener {
+                                                                Log.d("Image", "File Location: $it")
+                                                            }
+                                                    } else {
+                                                        Log.d("Image", "File Location: ")
+                                                    }
+                                                }
+                                            }
+                                            .addOnFailureListener {
+                                                Log.d("Image", "File Location: $it")
+                                            }
+                                    }
+                                }
+                            }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Error while fetching data!", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+                else -> {
                 Toast.makeText(context, "Unrecognized request code", Toast.LENGTH_SHORT).show()
             }
         }
@@ -925,5 +1107,43 @@ class OwnerProfileActivity : Fragment() {
         } else {
             Toast.makeText(context, "No image selected", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onResume() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+        var showcaseImages: List<String>?
+
+        if (uid != null) {
+            db.collection("users").document(uid)
+                .addSnapshotListener { value, error ->
+                    if (error != null) {
+                        Toast.makeText(
+                            context,
+                            "Error while fetching data!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        showcaseImages = value?.get("showcaseImages") as List<String>?
+
+                        val imageViews = listOf(bannerscroll1, bannerscroll2, bannerscroll3, bannerscroll4, bannerscroll5, bannerscroll6, bannerscroll7)
+
+                        for (i in 0 until imageViews.size) {
+                            if (i < showcaseImages?.size ?: 0) {
+                                Picasso.get()
+                                    .load(showcaseImages?.get(i)?.toUri())
+                                    .placeholder(R.drawable.blank)
+                                    .into(imageViews[i])
+                            } else {
+                                imageViews[i].setImageResource(R.drawable.blank)
+                            }
+                        }
+                    }
+                }
+        } else {
+            Toast.makeText(context, "User not authenticated", Toast.LENGTH_SHORT).show()
+        }
+
+        super.onResume()
     }
 }

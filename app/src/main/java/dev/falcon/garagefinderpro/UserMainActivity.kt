@@ -218,13 +218,13 @@ class UserMainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun openAnother(view: View) {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .replace(R.id.container, ViewProductActivity())
-            .commit()
-    }
+//    fun openAnother(view: View) {
+//        supportFragmentManager
+//            .beginTransaction()
+//            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+//            .replace(R.id.container, ViewProductActivity())
+//            .commit()
+//    }
 
 //    fun viewMoreProducts(view: View) {
 //        supportFragmentManager

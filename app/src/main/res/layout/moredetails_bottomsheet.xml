@@ -221,7 +221,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg1"
+                        android:id="@+id/banner1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -238,7 +238,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg2"
+                        android:id="@+id/banner2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -255,7 +255,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg3"
+                        android:id="@+id/banner3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -272,7 +272,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg4"
+                        android:id="@+id/banner4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -289,7 +289,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg5"
+                        android:id="@+id/banner5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -306,7 +306,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg6"
+                        android:id="@+id/banner6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -322,7 +322,7 @@
                     app:cardCornerRadius="15dp">
 
                     <ImageView
-                        android:id="@+id/homescrollimg7"
+                        android:id="@+id/banner7"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"

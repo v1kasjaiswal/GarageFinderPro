@@ -98,6 +98,15 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
 
     lateinit var detailsGarageRatings : RatingBar
 
+
+    lateinit var banner1 : ImageView
+    lateinit var banner2 : ImageView
+    lateinit var banner3 : ImageView
+    lateinit var banner4 : ImageView
+    lateinit var banner5 : ImageView
+    lateinit var banner6 : ImageView
+    lateinit var banner7 : ImageView
+
     lateinit var contact: String
 
     private var layoutManager: RecyclerView.LayoutManager? = null
@@ -198,6 +207,14 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
             detailsSpecialization4 = bottomSheetView.findViewById(R.id.detailsSpecialization4)
             detailsSpecialization5 = bottomSheetView.findViewById(R.id.detailsSpecialization5)
 
+            banner1 = bottomSheetView.findViewById(R.id.banner1)
+            banner2 = bottomSheetView.findViewById(R.id.banner2)
+            banner3 = bottomSheetView.findViewById(R.id.banner3)
+            banner4 = bottomSheetView.findViewById(R.id.banner4)
+            banner5 = bottomSheetView.findViewById(R.id.banner5)
+            banner6 = bottomSheetView.findViewById(R.id.banner6)
+            banner7 = bottomSheetView.findViewById(R.id.banner7)
+
             detailsGarageName.text = garageNames[position]
             Picasso.get().load(garagePhoto[position].toUri()).placeholder(R.drawable.blank).into(detailsOwnerImage)
             Picasso.get().load(garageCover[position].toUri()).placeholder(R.drawable.blank).into(detailsCoverImage)
@@ -233,6 +250,34 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                     Toast.makeText(holder.itemView.context, "No Contact Found", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            db.collection("users").document(garageIds[position])
+                .get()
+                .addOnSuccessListener { documentSnapshot ->
+                    val bannerList = listOf(banner1, banner2, banner3, banner4, banner5, banner6, banner7)
+                    val showcaseImages = documentSnapshot.data?.get("showcaseImages") as? List<String>
+
+                    if (showcaseImages.isNullOrEmpty()) {
+                        for (banner in bannerList) {
+                            banner.setImageResource(R.drawable.blank)
+                        }
+                    } else {
+                        for (i in 0 until bannerList.size) {
+                            if (i < showcaseImages.size) {
+                                Picasso.get()
+                                    .load(showcaseImages[i].toUri())
+                                    .placeholder(R.drawable.blank)
+                                    .into(bannerList[i])
+                            } else {
+                                bannerList[i].setImageResource(R.drawable.blank)
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.d("TAG", "onCreateView: ${e.message}")
+                }
+
 
 
             var specialization = garageSpecialization[position].split(",")
@@ -667,5 +712,118 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
         else{
             Log.d("TAG", "processNotification: Failed")
         }
+    }
+
+    fun searchFilter(searchWord: String){
+        var searchWord = searchWord.lowercase()
+
+        garageIds = emptyList<String>()
+        garageNames = emptyList<String>()
+        garageAddresses = emptyList<String>()
+        garageTimings = emptyList<String>()
+        tokens = emptyList<String>()
+        garageMinCost = emptyList<String>()
+        garageTowing = emptyList<String>()
+        garageContact1 = emptyList<String>()
+        garageContact2 = emptyList<String>()
+        garageRatings = emptyList<String>()
+        garageStatus = emptyList<String>()
+        garagePhoto = emptyList<String>()
+        garageCover = emptyList<String>()
+        garageSpecialization = emptyList<String>()
+
+
+
+        db.collection("users")
+            .whereEqualTo("type","garageowner")
+            .whereNotEqualTo("garageSpecialization", null)
+            .get()
+            .addOnSuccessListener { documents ->
+                Log.d("TAG", "onCreateView: Success ${documents}")
+
+                for (document in documents) {
+
+                        garageIds = garageIds + document.id
+                        garageNames = garageNames + document.data["name"].toString()
+                        garageAddresses = garageAddresses + document.data["garageAddress"].toString()
+                        garageTimings = garageTimings + ("Timing: "+document.data["garageTime"].toString())
+                        tokens = tokens + document.data["token"].toString()
+                        garageMinCost = garageMinCost + ("Min. Service Cost: "+document.data["garageServiceCost"].toString())
+                        garageTowing = garageTowing + document.data["garageTowing"].toString()
+                        garageContact1 = garageContact1 + document.data["garageContact1"].toString()
+                        garageContact2 = garageContact2 + document.data["garageContact2"].toString()
+                        garageRatings = garageRatings + document.data["rating"].toString()
+                        garageStatus = garageStatus + document.data["garageStatus"].toString()
+                        garagePhoto = garagePhoto + document.data["photo"].toString()
+                        garageCover = garageCover + document.data["cover"].toString()
+                        garageSpecialization = garageSpecialization + document.data["garageSpecialization"].toString()
+
+
+                }
+                notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                Log.d("TAG", "onCreateView: ${it.message}")
+            }
+
+        for (i in this.garageNames.indices){
+            if (this.garageNames[i].lowercase().contains(searchWord)){
+                garageNames = garageNames + this.garageNames[i]
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    fun filterGarage(towing: String, mincost: String){
+
+        Log.d("DDDD", "filterGarage: $towing $mincost")
+
+        db.collection("users")
+            .whereEqualTo("type","garageowner")
+            .whereNotEqualTo("garageSpecialization", null)
+            .whereEqualTo("garageTowing", towing)
+            .whereEqualTo("garageServiceCost", mincost)
+            .get()
+            .addOnSuccessListener {
+                Log.d("TAG", "filterGarage: Success ${it}")
+
+                garageIds = emptyList<String>()
+                garageNames = emptyList<String>()
+                garageAddresses = emptyList<String>()
+                garageTimings = emptyList<String>()
+                tokens = emptyList<String>()
+                garageMinCost = emptyList<String>()
+                garageTowing = emptyList<String>()
+                garageContact1 = emptyList<String>()
+                garageContact2 = emptyList<String>()
+                garageRatings = emptyList<String>()
+                garageStatus = emptyList<String>()
+                garagePhoto = emptyList<String>()
+                garageCover = emptyList<String>()
+                garageSpecialization = emptyList<String>()
+
+                for (document in it) {
+
+                    garageIds = garageIds + document.id
+                    garageNames = garageNames + document.data["name"].toString()
+                    garageAddresses = garageAddresses + document.data["garageAddress"].toString()
+                    garageTimings = garageTimings + ("Timing: "+document.data["garageTime"].toString())
+                    tokens = tokens + document.data["token"].toString()
+                    garageMinCost = garageMinCost + ("Min. Service Cost: "+document.data["garageServiceCost"].toString())
+                    garageTowing = garageTowing + document.data["garageTowing"].toString()
+                    garageContact1 = garageContact1 + document.data["garageContact1"].toString()
+                    garageContact2 = garageContact2 + document.data["garageContact2"].toString()
+                    garageRatings = garageRatings + document.data["rating"].toString()
+                    garageStatus = garageStatus + document.data["garageStatus"].toString()
+                    garagePhoto = garagePhoto + document.data["photo"].toString()
+                    garageCover = garageCover + document.data["cover"].toString()
+                    garageSpecialization = garageSpecialization + document.data["garageSpecialization"].toString()
+
+                }
+                notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                Log.d("TAG", "filterGarage: ${it.message}")
+            }
     }
 }

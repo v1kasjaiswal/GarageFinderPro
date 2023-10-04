@@ -48,13 +48,13 @@
                 android:textColor="@color/offline"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                app:layout_constraintEnd_toStartOf="@+id/settings"
                 app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -367,319 +367,240 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="570dp"
+                android:layout_height="355dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                app:cardCornerRadius="15dp"
-                android:outlineSpotShadowColor="@color/white"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:elevation="8dp"
+                app:cardBackgroundColor="@color/grey2"
+                app:cardCornerRadius="15dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/archivo"
+                    android:text="Automobile Care Tips"
+                    android:textColor="@color/offline"
+                    android:textSize="20sp" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView5"
-                        android:layout_width="175dp"
-                        android:layout_height="260dp"
-                        app:cardBackgroundColor="@color/grey2"
-                        android:elevation="8dp"
-                        app:cardCornerRadius="15dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="15dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/agera" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Koenigsegg Agera"
-                                android:textColor="@color/offline"
-                                android:textSize="17sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rs. 12,00,00,000"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rating: 4.5/5 (1M+)"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:backgroundTint="@color/black"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Order Now!"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="175dp"
-                        android:layout_height="260dp"
-                        android:elevation="8dp"
-                        app:cardBackgroundColor="@color/grey2"
-                        app:cardCornerRadius="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/cardView5"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/call911" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Porsche GT3RS"
-                                android:textColor="@color/offline"
-                                android:textSize="17sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rs. 2,00,00,000"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rating: 4.5/5 (1M+)"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:backgroundTint="@color/black"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Order Now!"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="175dp"
-                        android:layout_height="260dp"
-                        android:elevation="8dp"
-                        app:cardCornerRadius="15dp"
-                        app:cardBackgroundColor="@color/grey2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView5"
-                        app:layout_constraintVertical_bias="0.222">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/bugatti" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Bugatti Chiron"
-                                android:textColor="@color/offline"
-                                android:textSize="17sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rs. 12,00,00,000"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rating: 4.5/5 (1M+)"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:backgroundTint="@color/black"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Order Now!"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView6"
-                        android:layout_width="175dp"
-                        android:layout_height="260dp"
-                        android:elevation="8dp"
-                        app:cardBackgroundColor="@color/grey2"
-                        app:cardCornerRadius="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/cardView5"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView5"
-                        app:layout_constraintVertical_bias="0.216">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/f40" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Ferrari F40"
-                                android:textColor="@color/offline"
-                                android:textSize="17sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rs. 12,00,00,000"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Rating: 4.5/5 (1M+)"
-                                android:textColor="@color/offline"
-                                android:textSize="13sp" />
-
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:backgroundTint="@color/black"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:fontFamily="@font/archivo"
-                                android:text="Order Now!"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/fluidlevels"
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/blank" />
 
                     <TextView
-                        android:id="@+id/viewMoreProducts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
+                        android:layout_gravity="center |bottom"
+                        android:layout_marginBottom="15dp"
                         android:fontFamily="@font/archivo"
-                        android:text="View More Products!"
+                        android:text="Fluid Levels"
+                        android:textAlignment="center"
                         android:textColor="@color/offline"
-                        android:textSize="17sp"
-                        android:onClick="openAnother"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:textSize="15sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="135dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/batterycare"
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/blank" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center |bottom"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/archivo"
+                        android:text="Battery Care"
+                        android:textAlignment="center"
+                        android:textColor="@color/offline"
+                        android:textSize="15sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/tyrecare"
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/blank" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center |bottom"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/archivo"
+                        android:text="Tyre Care"
+                        android:textAlignment="center"
+                        android:textColor="@color/offline"
+                        android:textSize="15sp" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="200dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/wheelalign"
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/blank" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center |bottom"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/archivo"
+                        android:text="Wheel Align"
+                        android:textAlignment="center"
+                        android:textColor="@color/offline"
+                        android:textSize="15sp" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="135dp"
+                    android:layout_marginTop="200dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/radiatorcare"
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/blank" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center |bottom"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/archivo"
+                        android:text="Radiator Care"
+                        android:textAlignment="center"
+                        android:textColor="@color/offline"
+                        android:textSize="15sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="200dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:elevation="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/brakecare"
+                        android:layout_width="match_parent"
+                        android:layout_height="95dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/blank" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center |bottom"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/archivo"
+                        android:text="Brake Care"
+                        android:textAlignment="center"
+                        android:textColor="@color/offline"
+                        android:textSize="15sp" />
+
+                </androidx.cardview.widget.CardView>
 
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/archivo"
+                android:layout_gravity="center_horizontal"
+                android:text="Smooth rides, trouble-free glides!"
+                android:textColor="@color/offline"
+                android:textSize="20sp" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/splashanimation" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
                 android:elevation="8dp"

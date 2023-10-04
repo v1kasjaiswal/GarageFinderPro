@@ -168,10 +168,6 @@ class OwnerRequestsJobsRecyclerAdapter : RecyclerView.Adapter<OwnerRequestsJobsR
             holder.statusesUpdateLayout.visibility = View.GONE
         }
 
-//        if the job status is Completed then show the rating text and review text if review is not null and hide the review button
-//        if the job status is not Completed then hide the rating text and review text and show the review button
-//        if the job status is Declined then hide the rating text and review text and show the review button
-//        if the job status is Cancelled then hide the rating text and review text and show the review button
         db.collection("jobcards")
             .whereEqualTo("userId", userIds[position])
             .whereEqualTo("garageId", auth.currentUser?.uid.toString())
@@ -187,6 +183,9 @@ class OwnerRequestsJobsRecyclerAdapter : RecyclerView.Adapter<OwnerRequestsJobsR
                         holder.requesterUpdate.visibility = View.GONE
                         holder.statusesUpdateLayout.visibility = View.GONE
 
+                        holder.requesterFinalAmount.visibility = View.VISIBLE
+                        holder.requesterPayment.visibility = View.VISIBLE
+
                         if (document.data.get("rating").toString()=="null"){
                             holder.requesterRating.text = "Rating: 1"
                             holder.requesterReview.text = "Review: \n" + "No Review"
@@ -194,6 +193,20 @@ class OwnerRequestsJobsRecyclerAdapter : RecyclerView.Adapter<OwnerRequestsJobsR
                         else{
                             holder.requesterRating.text = "Rating: " + document.data.get("rating").toString()
                             holder.requesterReview.text = "Review: \n" + document.data.get("review").toString()
+                        }
+
+                        if (document.data.get("finalAmount").toString()=="null"){
+                            holder.requesterFinalAmount.text = "Final Amount: TBD"
+                        }
+                        else{
+                            holder.requesterFinalAmount.text = "Final Amount: " + document.data.get("finalAmount").toString()
+                        }
+
+                        if (document.data.get("payment").toString()=="null"){
+                            holder.requesterPayment.text = "Payment: Not Paid"
+                        }
+                        else{
+                            holder.requesterPayment.text = "Payment: " + document.data.get("payment").toString()
                         }
                     }
 
@@ -232,6 +245,36 @@ class OwnerRequestsJobsRecyclerAdapter : RecyclerView.Adapter<OwnerRequestsJobsR
 
                     holder.statusesUpdateLayout.visibility = View.VISIBLE
                     holder.requesterUpdate.visibility = View.VISIBLE
+                }
+
+                if (requesterJobStatuses[position]=="Completed"){
+                    holder.requesterRating.visibility = View.VISIBLE
+                    holder.requesterReview.visibility = View.VISIBLE
+
+                    holder.requesterUpdate.visibility = View.GONE
+                    holder.statusesUpdateLayout.visibility = View.GONE
+
+                    db.collection("jobcards")
+                        .whereEqualTo("userId", userIds[position])
+                        .whereEqualTo("garageId", auth.currentUser?.uid.toString())
+                        .whereEqualTo("date", requesterDateTimes[position])
+                        .get()
+                        .addOnSuccessListener {
+                            for (document in it)
+                            {
+                                if (document.data.get("rating").toString()=="null"){
+                                    holder.requesterRating.text = "Rating: 1"
+                                    holder.requesterReview.text = "Review: \n" + "No Review"
+                                }
+                                else{
+                                    holder.requesterRating.text = "Rating: " + document.data.get("rating").toString()
+                                    holder.requesterReview.text = "Review: \n" + document.data.get("review").toString()
+                                }
+                            }
+                        }
+                        .addOnFailureListener {
+                            Log.d("TAG", "Failed to get data")
+                        }
                 }
 
             } else {
@@ -423,6 +466,9 @@ class OwnerRequestsJobsRecyclerAdapter : RecyclerView.Adapter<OwnerRequestsJobsR
         lateinit var requesterCall : ImageView
         lateinit var requesterMaps : ImageView
 
+        lateinit var requesterFinalAmount : TextView
+        lateinit var requesterPayment : TextView
+
         init {
             requesterMoreInfo = itemView.findViewById(R.id.requesterMoreInfo)
             requesterMoreDetails = itemView.findViewById(R.id.requesterMoreDetails)
@@ -456,6 +502,9 @@ class OwnerRequestsJobsRecyclerAdapter : RecyclerView.Adapter<OwnerRequestsJobsR
 
             requesterCall = itemView.findViewById(R.id.requesterCall)
             requesterMaps = itemView.findViewById(R.id.requesterMaps)
+
+            requesterFinalAmount = itemView.findViewById(R.id.requesterFinalAmount)
+            requesterPayment = itemView.findViewById(R.id.requesterPayment)
 
             var statuses = arrayOf<String>("Pending", "In Progress", "Declined", "Completed")
             val statusesTypeAdapter: ArrayAdapter<String> = ArrayAdapter<String>(

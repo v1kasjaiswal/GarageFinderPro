@@ -22,8 +22,12 @@ class OwnerHomeActivity : Fragment() {
     lateinit var garageSwitch : MaterialSwitch
     lateinit var garageStatus : TextView
 
+    lateinit var homeGarageName : TextView
+
     lateinit var totalRequests : TextView
     lateinit var totalJobcards : TextView
+
+    lateinit var totalEarnings : TextView
 
     lateinit var jobcardOnPending : TextView
     lateinit var jobcardOnGoing : TextView
@@ -40,6 +44,8 @@ class OwnerHomeActivity : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.ownerhome_activity, container, false)
+
+        homeGarageName = view.findViewById(R.id.homeGarageName)
 
         garageSwitch = view.findViewById(R.id.garageSwitch)
         garageStatus = view.findViewById(R.id.garageStatus)
@@ -58,6 +64,9 @@ class OwnerHomeActivity : Fragment() {
                     garageSwitch.isChecked = false
                     garageStatus.text = "Closed"
                 }
+
+                homeGarageName.text = "Welcome!, "+it.get("name").toString()
+                homeGarageName.isSelected = true
             }
 
         garageSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -90,12 +99,24 @@ class OwnerHomeActivity : Fragment() {
         jobcardOnGoing = view.findViewById(R.id.jobcardOnGoing)
         jobcardCompleted = view.findViewById(R.id.jobcardCompleted)
 
+        totalEarnings = view.findViewById(R.id.totalEarnings)
 
         db.collection("jobcards")
             .whereEqualTo("garageId", auth.currentUser!!.uid)
-            .whereEqualTo("status", "Pending")
-            .whereEqualTo("status", "In Progress")
             .whereEqualTo("status", "Completed")
+            .whereEqualTo("payment", "Paid")
+            .get()
+            .addOnSuccessListener {
+                var total = 0
+                for(i in it){
+                    total += i.get("finalAmount").toString().toInt()
+                }
+                totalEarnings.text = "Total Earnings: Rs. " + total.toString()
+            }
+
+        db.collection("jobcards")
+            .whereEqualTo("garageId", auth.currentUser!!.uid)
+            .whereIn("status", listOf("Pending", "In Progress", "Completed"))
             .get()
             .addOnSuccessListener {
                 totalJobcards.text = "Total Jobcards: 00"
@@ -109,8 +130,6 @@ class OwnerHomeActivity : Fragment() {
             .whereEqualTo("garageId", auth.currentUser!!.uid)
             .get()
             .addOnSuccessListener {
-                Log.d("TAG", it.size().toString())
-
                 totalRequests.text = "Total Requests: " + it.size().toString()
             }
             .addOnFailureListener {

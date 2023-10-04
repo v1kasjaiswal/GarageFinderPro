@@ -247,11 +247,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView15" />
 
             <ImageView
-                android:id="@+id/editShowcaseImages"
+                android:id="@+id/deleteShowcaseImages"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:src="@drawable/trash"
+                app:layout_constraintEnd_toEndOf="@+id/button2"
+                app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+            <ImageView
+                android:id="@+id/editShowcaseImages"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="40dp"
                 android:src="@drawable/edit"
                 app:layout_constraintEnd_toEndOf="@+id/button2"
                 app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -299,7 +309,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg1"
+                                android:id="@+id/bannerscroll1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
@@ -316,7 +326,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg2"
+                                android:id="@+id/bannerscroll2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
@@ -333,7 +343,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg3"
+                                android:id="@+id/bannerscroll3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
@@ -350,7 +360,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg4"
+                                android:id="@+id/bannerscroll4"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
@@ -367,7 +377,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg5"
+                                android:id="@+id/bannerscroll5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
@@ -384,7 +394,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg6"
+                                android:id="@+id/bannerscroll6"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
@@ -400,7 +410,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/homescrollimg7"
+                                android:id="@+id/bannerscroll7"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
