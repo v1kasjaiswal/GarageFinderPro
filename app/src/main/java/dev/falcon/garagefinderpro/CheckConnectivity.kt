@@ -52,24 +52,48 @@ class CheckConnectivity : BroadcastReceiver()
 
                     if (result)
                     {
-
+                       if (context is OfflineActivity)
+                       {
+                           (context as OfflineActivity).finish()
+                       }
                     }
                     else{
-                        val intent = Intent(context, OfflineActivity::class.java)
-                        context.startActivity(intent)
+                        if (context is OfflineActivity)
+                        {
+                            return@launch
+                        }
+                        else
+                        {
+                            val intent = Intent(context, OfflineActivity::class.java)
+                            context.startActivity(intent)
+                        }
                     }
                 }
+            }
+            else
+            {
+                if (context is OfflineActivity)
+                {
+                    return
+                }
+                else
+                {
+                    val intent = Intent(context, OfflineActivity::class.java)
+                    context.startActivity(intent)
+                }
+            }
+        }
+        else
+        {
+            if (context is OfflineActivity)
+            {
+                return
             }
             else
             {
                 val intent = Intent(context, OfflineActivity::class.java)
                 context.startActivity(intent)
             }
-        }
-        else
-        {
-            val intent = Intent(context, OfflineActivity::class.java)
-            context.startActivity(intent)
         }
 
     }

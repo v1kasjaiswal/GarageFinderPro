@@ -175,7 +175,7 @@
         app:layout_constraintTop_toBottomOf="@+id/verifyOTPButton" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/sinsupport"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/black"
@@ -206,9 +206,9 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintEnd_toEndOf="@+id/sinsupport"
+        app:layout_constraintStart_toStartOf="@+id/sinsupport"
+        app:layout_constraintTop_toBottomOf="@+id/sinsupport" />
 
     <Button
         android:id="@+id/button6"

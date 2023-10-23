@@ -715,31 +715,36 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
     }
 
     fun searchFilter(searchWord: String){
-        var searchWord = searchWord.lowercase()
+        var searchWord = searchWord.toString()
 
-        garageIds = emptyList<String>()
-        garageNames = emptyList<String>()
-        garageAddresses = emptyList<String>()
-        garageTimings = emptyList<String>()
-        tokens = emptyList<String>()
-        garageMinCost = emptyList<String>()
-        garageTowing = emptyList<String>()
-        garageContact1 = emptyList<String>()
-        garageContact2 = emptyList<String>()
-        garageRatings = emptyList<String>()
-        garageStatus = emptyList<String>()
-        garagePhoto = emptyList<String>()
-        garageCover = emptyList<String>()
-        garageSpecialization = emptyList<String>()
 
+
+        Log.d("DDDD", "searchFilter: $searchWord")
 
 
         db.collection("users")
             .whereEqualTo("type","garageowner")
+            .whereEqualTo("garageStatus", "Open")
+            .whereEqualTo("name", searchWord)
             .whereNotEqualTo("garageSpecialization", null)
             .get()
             .addOnSuccessListener { documents ->
-                Log.d("TAG", "onCreateView: Success ${documents}")
+                Log.d("TAG", "onCreateView: Success ${documents.size()}")
+
+                garageIds = emptyList<String>()
+                garageNames = emptyList<String>()
+                garageAddresses = emptyList<String>()
+                garageTimings = emptyList<String>()
+                tokens = emptyList<String>()
+                garageMinCost = emptyList<String>()
+                garageTowing = emptyList<String>()
+                garageContact1 = emptyList<String>()
+                garageContact2 = emptyList<String>()
+                garageRatings = emptyList<String>()
+                garageStatus = emptyList<String>()
+                garagePhoto = emptyList<String>()
+                garageCover = emptyList<String>()
+                garageSpecialization = emptyList<String>()
 
                 for (document in documents) {
 
@@ -758,7 +763,6 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                         garageCover = garageCover + document.data["cover"].toString()
                         garageSpecialization = garageSpecialization + document.data["garageSpecialization"].toString()
 
-
                 }
                 notifyDataSetChanged()
             }
@@ -766,12 +770,25 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
                 Log.d("TAG", "onCreateView: ${it.message}")
             }
 
-        for (i in this.garageNames.indices){
-            if (this.garageNames[i].lowercase().contains(searchWord)){
-                garageNames = garageNames + this.garageNames[i]
-                notifyDataSetChanged()
-            }
-        }
+//        for (i in this.garageNames.indices){
+//            if (this.garageNames[i].lowercase().contains(searchWord)){
+//                garageIds = garageIds + this.garageIds[i]
+//                garageNames = garageNames + this.garageNames[i]
+//                garageAddresses = garageAddresses + this.garageAddresses[i]
+//                garageTimings = garageTimings + this.garageTimings[i]
+//                tokens = tokens + this.tokens[i]
+//                garageMinCost = garageMinCost + this.garageMinCost[i]
+//                garageTowing = garageTowing + this.garageTowing[i]
+//                garageContact1 = garageContact1 + this.garageContact1[i]
+//                garageContact2 = garageContact2 + this.garageContact2[i]
+//                garageRatings = garageRatings + this.garageRatings[i]
+//                garageStatus = garageStatus + this.garageStatus[i]
+//                garagePhoto = garagePhoto + this.garagePhoto[i]
+//                garageCover = garageCover + this.garageCover[i]
+//                garageSpecialization = garageSpecialization + this.garageSpecialization[i]
+//                notifyDataSetChanged()
+//            }
+//        }
     }
 
     fun filterGarage(towing: String, mincost: String){
@@ -780,12 +797,12 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
 
         db.collection("users")
             .whereEqualTo("type","garageowner")
-            .whereNotEqualTo("garageSpecialization", null)
             .whereEqualTo("garageTowing", towing)
+            .whereEqualTo("garageStatus", "Open")
             .whereEqualTo("garageServiceCost", mincost)
             .get()
             .addOnSuccessListener {
-                Log.d("TAG", "filterGarage: Success ${it}")
+                Log.d("TAG", "data " + it.size() )
 
                 garageIds = emptyList<String>()
                 garageNames = emptyList<String>()

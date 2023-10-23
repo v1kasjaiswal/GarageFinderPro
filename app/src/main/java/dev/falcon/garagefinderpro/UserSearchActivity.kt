@@ -14,6 +14,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class UserSearchActivity : Fragment() {
 
@@ -27,6 +29,8 @@ class UserSearchActivity : Fragment() {
 
     lateinit var filterTowing : AutoCompleteTextView
     lateinit var filterMinCost : AutoCompleteTextView
+
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,6 +109,8 @@ class UserSearchActivity : Fragment() {
                                     it.filterGarage(
                                         filterTowingText,
                                         filterMinCostText)
+
+                                    Log.d("UserSearchActivity", "Positive Button Clicked")
                                 }
                         } else {
                             filterMinCost.error = "Invalid Cost"

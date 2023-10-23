@@ -145,12 +145,12 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="26dp"
         android:layout_marginEnd="20dp"
+        android:onClick="openOfflineSupport"
         android:src="@drawable/support"
         android:tooltipText="Contact Support"
-        android:onClick="openOfflineSupport"
         app:layout_constraintBottom_toTopOf="@+id/verifyOTPButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -161,6 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/info"
+        android:onClick="showInfo"
         android:tooltipText="Why I am seeing this?"
         app:layout_constraintBottom_toTopOf="@+id/verifyOTPButton"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"

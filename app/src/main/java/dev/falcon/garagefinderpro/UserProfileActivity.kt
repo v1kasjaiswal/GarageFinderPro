@@ -226,7 +226,7 @@ class UserProfileActivity : Fragment() {
 
                                         db.collection("users").document(auth.currentUser!!.uid)
                                             .collection("vehicles")
-                                            .document(vehicleNumber.text.toString())
+                                            .document(vehicleNumber.text.toString().uppercase())
                                             .set(vehicle)
                                             .addOnSuccessListener {
                                                 Toast.makeText(

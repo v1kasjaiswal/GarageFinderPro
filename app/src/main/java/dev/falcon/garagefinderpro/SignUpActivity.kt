@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -214,8 +215,21 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun moveToSignin(view: View) {
-//        val intent = Intent(this, SignInActivity::class.java)
-//        startActivity(intent)
-//        finish()
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun showInfo(view: View) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Info")
+            .setMessage("Welcome to Garage Finder Pro! \n\n" +
+                    "This app is designed to help you find the best garages in your area. \n\n" +
+                    "Developed By - Vikas Jaiswal\n\n" +
+                    "For any queries, please contact us")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

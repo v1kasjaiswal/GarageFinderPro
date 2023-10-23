@@ -177,6 +177,23 @@ class UserRequestsRecyclerAdapter : RecyclerView.Adapter<UserRequestsRecyclerAda
                 }
         }
 
+        db.collection("jobcards")
+            .whereEqualTo("userId", auth.currentUser?.uid)
+            .whereEqualTo("garageId", garageIds[position])
+            .whereEqualTo("date", requestedDateTimes[position])
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document.data["status"] == "Cancelled" || document.data["status"]=="Declined" || document.data["status"]=="Completed") {
+                        holder.requestedCancel.visibility = View.GONE
+                    }
+                    else
+                    {
+                        holder.requestedCancel.visibility = View.VISIBLE
+                    }
+                }
+            }
+
         holder.paymentButton.setOnClickListener {
             val alterDialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setTitle("Payment")

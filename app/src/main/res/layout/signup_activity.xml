@@ -22,12 +22,12 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="24dp"
+        android:onClick="openSignUpSupport"
         android:src="@drawable/support"
         android:tooltipText="Contact Support"
-        android:onClick="openSignUpSupport"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -40,6 +40,7 @@
         android:layout_marginEnd="24dp"
         android:src="@drawable/info"
         android:tooltipText="About"
+        android:onClick="showInfo"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.961"
         app:layout_constraintStart_toEndOf="@+id/textView9"

@@ -20,7 +20,7 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
-            android:layout_width="320dp"
+            android:layout_width="310dp"
             android:layout_height="55dp"
             android:background="@color/grey2"
             android:iconifiedByDefault="false"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="340dp"
+            android:layout_marginLeft="325dp"
             android:src="@drawable/settings" />
 
     </androidx.cardview.widget.CardView>

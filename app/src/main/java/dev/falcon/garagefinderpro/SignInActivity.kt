@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -391,5 +392,18 @@ class SignInActivity : AppCompatActivity() {
 
     fun signinCancel(view: View) {
         finish()
+    }
+
+    fun showInfo(view: View) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Info")
+            .setMessage("Welcome to Garage Finder Pro! \n\n" +
+                    "This app is designed to help you find the best garages in your area. \n\n" +
+                    "Developed By - Vikas Jaiswal\n\n" +
+                    "For any queries, please contact us")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

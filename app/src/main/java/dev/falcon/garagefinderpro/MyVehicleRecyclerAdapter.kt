@@ -67,16 +67,38 @@ class MyVehicleRecyclerAdapter : RecyclerView.Adapter<MyVehicleRecyclerAdapter.V
                 .setTitle("Confirm Deletion")
                 .setMessage("Are you sure you want to delete this vehicle?")
                 .setPositiveButton("Delete") { _, _ ->
-            db.collection("users").document(auth.currentUser!!.uid).collection("vehicles").document(vnumbers[position].toString())
+
+                    Log.d("TAG", "onBindViewHolder: ${vnumbers[position].uppercase()}")
+
+            db.collection("users").document(auth.currentUser!!.uid).collection("vehicles").document(vnumbers[position].toString().uppercase())
                 .delete()
                 .addOnSuccessListener {
+
+                    vnames = emptyList<String>()
+                    vnumbers = emptyList<String>()
+                    vtypes = emptyList<String>()
+                    vmodels = emptyList<String>()
+                    vfueltype = emptyList<String>()
+
+                    db.collection("users").document(auth.currentUser!!.uid).collection("vehicles")
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                vnames = vnames + document.data["vehicleName"].toString()
+                                vnumbers = vnumbers + document.data["vehicleNumber"].toString()
+                                vtypes = vtypes + document.data["vehicleType"].toString()
+                                vmodels = vmodels + document.data["vehicleModel"].toString()
+                                vfueltype = vfueltype + document.data["fuelType"].toString()
+                            }
+                            notifyDataSetChanged()
+                        }
+                        .addOnFailureListener {
+                            Log.d("TAG", "onCreateView: ${it.message}")
+                        }
+
+
                     Toast.makeText(holder.itemView.context, "Vehicle Removed", Toast.LENGTH_SHORT).show()
-                    vnames = vnames - vnames[position]
-                    vnumbers = vnumbers - vnumbers[position]
-                    vtypes = vtypes - vtypes[position]
-                    vmodels = vmodels - vmodels[position]
-                    vfueltype = vfueltype - vfueltype[position]
-                    notifyDataSetChanged()
+
                 }
                 .addOnFailureListener {
                     Toast.makeText(holder.itemView.context, "Error removing document", Toast.LENGTH_SHORT).show()
