@@ -108,7 +108,9 @@ class FCMNotificationService : FirebaseMessagingService() {
                 }
                 .show()
         }
-        else if (remoteMessage.data["notificationType"]=="jobcardReview"){
+        else if (remoteMessage.data["notificationType"]==("jobcardReview")){
+
+            Log.d("FCM", "jobcardReview"+remoteMessage.data["title"].toString())
             Notify.with(applicationContext)
                 .meta {
                     clickIntent = PendingIntent.getActivity(
@@ -127,6 +129,7 @@ class FCMNotificationService : FirebaseMessagingService() {
                             "\nReview: \n" + remoteMessage.data["reviewText"].toString()
                     expandedText = remoteMessage.data["body"].toString()
                 }
+                .show()
         }
         else if (remoteMessage.data["notificationType"]=="paymentJobcard"){
             Notify.with(applicationContext)

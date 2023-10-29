@@ -175,6 +175,7 @@
             android:backgroundTint="@color/black"
             android:fontFamily="@font/archivo"
             android:layout_gravity="end"
+            android:onClick="openMapBox"
             android:layout_marginRight="10dp"
             android:paddingRight="45dp"
             android:paddingLeft="45dp"

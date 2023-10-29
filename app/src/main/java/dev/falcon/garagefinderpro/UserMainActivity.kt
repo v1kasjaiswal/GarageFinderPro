@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -216,6 +217,17 @@ class UserMainActivity : AppCompatActivity() {
     fun openSupport(view: View) {
         val intent = Intent(this, SupportActivity::class.java)
         startActivity(intent)
+    }
+
+    fun openMapBox(view: View) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Info")
+            .setMessage("Feature is currently under development! \n \n" +
+                    "Please check back later!")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
 //    fun openAnother(view: View) {
