@@ -24,6 +24,9 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
+
+
+
     <com.mapbox.navigation.dropin.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
@@ -44,6 +47,10 @@
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/navigationView"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/toggleOptions"-->

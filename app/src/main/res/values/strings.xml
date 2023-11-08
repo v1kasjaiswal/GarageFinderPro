@@ -4,7 +4,9 @@
     <string name="branding">Garage Finder Pro | All Rights Reserved 2023</string>
     <string name="secretPass">FalconDevs</string>
 
-    <string name="mapbox_access_token">sk.eyJ1Ijoib21lbnJhcHRvciIsImEiOiJjbGx0aXI5MGgwcGtrM2VvaDlxZHBjcW1tIn0.3GUVPq8pJI7NkCa12M2ixQ</string>
+<!--    <string name="mapbox_access_token">sk.eyJ1Ijoib21lbnJhcHRvciIsImEiOiJjbGx0aXI5MGgwcGtrM2VvaDlxZHBjcW1tIn0.3GUVPq8pJI7NkCa12M2ixQ</string>-->
+
+    <string name="mapbox_access_token">sk.eyJ1Ijoib21lbnJhcHRvciIsImEiOiJjbG9wa3oyeXAwY3oxMmlzOHg4bTVxZmNjIn0.vUfImBR7jZD-ypr69r_45g</string>
 
     <string name="api_key">cfe8304bb0mshb6039f76000bf12p1f26e4jsn185ec7a27c8b</string>
 

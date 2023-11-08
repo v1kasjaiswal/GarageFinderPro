@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "764974404753-mi07j0klcoh16v7q32889kfmgemk0ph2.apps.googleusercontent.com",
+          "client_id": "764974404753-1007u7lcse8qf1ok2t7le8rfd6q07lrm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "dev.falcon.garagefinderpro",
-            "certificate_hash": "97bc51b068d9d3742f709db85fa60a0184a1fe73"
+            "certificate_hash": "9702e7acbc5cbf05f5d83e7bb00112d5a849800b"
           }
         },
         {
