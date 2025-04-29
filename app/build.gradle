@@ -4,6 +4,9 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def MAPBOX_DOWNLOADS_TOKEN = project.hasProperty("MAPBOX_DOWNLOADS_TOKEN") ? project.MAPBOX_DOWNLOADS_TOKEN : ""
+//def MAPBOX_ACCESS_TOKEN = project.hasProperty("MAPBOX_ACCESS_TOKEN") ? project.MAPBOX_ACCESS_TOKEN : ""
+
 android {
     namespace 'dev.falcon.garagefinderpro'
     compileSdk 34
@@ -15,6 +18,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "MAPBOX_DOWNLOADS_TOKEN", "\"${MAPBOX_DOWNLOADS_TOKEN}\""
+//        buildConfigField "String", "MAPBOX_ACCESS_TOKEN", "\"${MAPBOX_ACCESS_TOKEN}\""
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -30,19 +40,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-//    packagingOptions {
-//        jniLibs.pickFirsts.add("lib/**/libc++_shared.so")
-//    }
-
-//    buildFeatures {
-//        buildConfig = true
-//    }
-//
-//
-//    buildTypes.each {
-//        it.buildConfigField 'String', 'TOMTOM_API_KEY', "\"$tomtomApiKey\""
-//    }
 }
 
 dependencies {

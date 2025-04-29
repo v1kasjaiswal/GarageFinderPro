@@ -7,6 +7,8 @@ pluginManagement {
     }
 }
 
+def MAPBOX_DOWNLOADS_TOKEN = gradle.hasProperty("MAPBOX_DOWNLOADS_TOKEN") ? gradle.MAPBOX_DOWNLOADS_TOKEN : ""
+
 dependencyResolutionManagement {
 //    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -27,16 +29,6 @@ dependencyResolutionManagement {
             }
         }
         maven { url 'https://jitpack.io' }
-
-
-//        maven {
-//            credentials {
-//                username = "omenraptor"
-//                password = "AizEj7LSvqJzZpvzOO1ZRdTfS3vu0QDz"
-//            }
-//            url = uri("https://repositories.tomtom.com/artifactory/maven")
-//        }
-
     }
 }
 
