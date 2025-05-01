@@ -1,4 +1,5 @@
-# <div align="center">**🛠️Garage Finder Pro!🛠️**
+<div align="center">
+  <img src="./screenshots/name.png" alt="Garage Finder Pro!" />
 </div>
 
 #### <div align="center">**Built using Classic Android Development - Kotlin + XML Layouts**
@@ -141,5 +142,5 @@ If you like this project, please consider giving it a ⭐. It will help me grow 
 ---
 
 <div align="center">
-Made with 💖 by Vikas Jaiswal (ValiantX)
+Made with 💖 by Vikas Jaiswal
 </div>
